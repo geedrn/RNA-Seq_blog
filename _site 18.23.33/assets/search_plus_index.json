@@ -1,0 +1,16 @@
+{"/jekyll-gitbook/others/about/": {
+    "title": "About others",
+    "keywords": "Jekyll",
+    "url": "/jekyll-gitbook/others/about/",
+    "body": "This is an about page for “others” in the collections."
+  },"/jekyll-gitbook/pages/how_I_build_this_website/": {
+    "title": "How I build this website",
+    "keywords": "Website",
+    "url": "/jekyll-gitbook/pages/how_I_build_this_website/",
+    "body": "This website is powered by jekyll-gitbook [https://github.com/sighingnow/jekyll-gitbook]. I simply forked the repository from the github and pasted them into my own repo. For local procedures, I use docker-ed jekyll. Here is my typicall command for a quick check after updating markdown. JEKYLL_VERSION=4.2.0 docker run --rm \\ --volume=\"$PWD:/srv/jekyll:Z\" \\ --publish 127.0.0.1:4000:4000 \\ -it jekyll/jekyll:$JEKYLL_VERSION \\ sh -c \"cd /srv/jekyll/rna-seq &amp;&amp; bundle install &amp;&amp; jekyll serve\""
+  },"/jekyll-gitbook/rna-seq/2024-08-23-easy_rna-seq.html": {
+    "title": "How you can obtain easy-to-handle data without bioinformatician",
+    "keywords": "RNA-Seq",
+    "url": "/jekyll-gitbook/rna-seq/2024-08-23-easy_rna-seq.html",
+    "body": "hogehoge"
+  }}
