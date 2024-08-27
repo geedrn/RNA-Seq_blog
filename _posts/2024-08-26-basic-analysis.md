@@ -41,6 +41,7 @@ Each algorithm creates distinct characteristics in mapping. It has been noted th
 > https://x.com/lpachter/status/937055346987712512
 > https://x.com/lpachter/status/1762004715678957910
 >
+>
 > HISAT2 is the one you should use if you want to use Tophat-like mapping. 
 {: .block-warning }
 
@@ -50,9 +51,11 @@ Each algorithm creates distinct characteristics in mapping. It has been noted th
 > Pertea, M., Kim, D., Pertea, G. et al. Transcript-level expression analysis of RNA-seq experiments with HISAT, StringTie and Ballgown. Nat Protoc 11, 1650–1667 (2016). 
 > https://doi.org/10.1038/nprot.2016.095
 >
+>
 > Due to alternative splicing, a single gene can produce multiple types of transcripts. Therefore, when estimating gene expression levels from mapping results,
 > you can decide whether you ignore transcript isoforms and counts per gene (gene-level quantification), or consider isoforms and count for each isoform
 > separately (transcript-level quantification). De novo assembler such as StringTie makes isoform quantification possible. 
+>
 >
 > https://ccb.jhu.edu/software/stringtie/index.shtml?t=faq
 {: .block-tip }
