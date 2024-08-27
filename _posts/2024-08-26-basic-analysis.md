@@ -26,9 +26,7 @@ People typically call this first step, alignment or mapping. Long story in short
 
 Mostly we use reference genomes such as GRCh38 for the reference in mapping. In NCBI, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 ([link](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.26/)) using HISAT2. 
 
-```
-A. Bianchi, A. Di Marco and C. Pellegrini, "Comparing HISAT and STAR-based pipelines for RNA-Seq Data Analysis: a real experience," 2023 IEEE 36th International Symposium on Computer-Based Medical Systems (CBMS), L'Aquila, Italy, 2023, pp. 218-224, doi: 10.1109/CBMS58004.2023.00220.
-```
+**A. Bianchi, A. Di Marco and C. Pellegrini, "Comparing HISAT and STAR-based pipelines for RNA-Seq Data Analysis: a real experience," 2023 IEEE 36th International Symposium on Computer-Based Medical Systems (CBMS), L'Aquila, Italy, 2023, pp. 218-224, doi: 10.1109/CBMS58004.2023.00220.**
 
 The paper above describes two major mapping tools in RNA-Seq field, STAR and HISAT.
 
@@ -57,7 +55,7 @@ Each algorithm creates distinct characteristics in mapping. It has been noted th
 > separately (transcript-level quantification). De novo assembler such as StringTie makes isoform quantification possible. 
 >
 > https://ccb.jhu.edu/software/stringtie/index.shtml?t=faq
-{: .block-tips }
+{: .block-tip }
 
 ### Phase 2 — quantification of transcript abundance
 > Once reads have been mapped to genomic or transcriptomic locations, the next step in the analysis process is to assign them to genes or transcripts, to determine abundance measures. Diverse comparative studies have shown that the approach taken at the quantification step has perhaps the largest impact on the ultimate results, even greater than the choice of aligner. The quantification of read abundances for individual genes (that is, all transcript isoforms for that gene) relies on counting sequence reads that overlap known genes, using a transcriptome annotation.
