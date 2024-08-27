@@ -1,9 +1,9 @@
 ---
-title: About others
-author: Tao He
-date: 2022-02-04
-category: Jekyll
+title: 
+author: 
+date: 2024-08-27
+category: About-me
 layout: post
 ---
 
-This is an about page for "others" in the collections.
+CV: [https://researchmap.jp/ryo.niwa](https://researchmap.jp/ryo.niwa)

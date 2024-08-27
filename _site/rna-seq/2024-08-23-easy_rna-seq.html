@@ -20,7 +20,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/gitbook/images/apple-touch-icon-precomposed-152.png">
-<link rel="shortcut icon" href="//assets/gitbook/images/favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/" type="image/x-icon">
 
 
 
@@ -95,7 +95,7 @@
                                 </a>
                                 
                                     
-                                        <ul><li><a href="#quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use NCBI generates RNA-seq count data</a><ul><li><a href="#rna-seq-raw-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Raw Count Matrix:</a></li><li><a href="#rna-seq-normalized-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Normalized Count Matrix:</a></li><li><a href="#how-the-analysis-works" onclick="mobilePageScrollToAnchor(this)" >How the analysis works?</a></li></ul></li></ul>
+                                        <ul><li><a href="#quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use NCBI generates RNA-seq count data</a><ul><li><a href="#rna-seq-raw-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Raw Count Matrix:</a></li><li><a href="#rna-seq-normalized-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Normalized Count Matrix:</a></li><li><a href="#how-does-the-analysis-work" onclick="mobilePageScrollToAnchor(this)" >How does the analysis work?</a></li></ul></li></ul>
 
                                     
                                 
@@ -151,7 +151,7 @@
                             <li class="chapter" data-level="1.1" data-path="/others/about/">
                             
                                 <a href="/others/about/" onclick="pageScrollToTop(this)">
-                                    About others
+                                    About
                                 </a>
                                 
                                     
@@ -267,7 +267,7 @@ For each GEO Series, two main types of files are generated, raw counts and norma
   </tbody>
 </table>
 
-<h3 id="how-the-analysis-works">How the analysis works?</h3>
+<h3 id="how-does-the-analysis-work">How does the analysis work?</h3>
 
 <p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>.</p>
 
@@ -275,7 +275,10 @@ For each GEO Series, two main types of files are generated, raw counts and norma
   <p>Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.</p>
 </blockquote>
 
-<p>Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway.</p>
+<blockquote class="block-tip">
+  <h5 id="this-way-of-the-output-is-atarimae-natural-in-rna-seq-field">This way of the output is Atarimae (natural) in RNA-Seq field</h5>
+  <p>Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway.</p>
+</blockquote>
 </section>
             </div><div class="search-results">
     <div class="has-results">
@@ -457,7 +460,7 @@ window.MathJax = {
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2024-08-27 04:40:05 -0500"
+        "time": "2024-08-27 04:57:45 -0500"
     },
     "basePath": "",
     "book": {

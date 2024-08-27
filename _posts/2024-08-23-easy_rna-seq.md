@@ -46,10 +46,13 @@ For each GEO Series, two main types of files are generated, raw counts and norma
 | Normalization | FPKM (RPKM) and TPM |
 
 
-### How the analysis works?
+### How does the analysis work?
 
 NCBI uses HISAT2 and featureCounts. Details are [here](https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how).
 
 > Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.
 
-Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway. 
+
+> ##### This way of the output is Atarimae (natural) in RNA-Seq field
+> Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway. 
+{: .block-tip }

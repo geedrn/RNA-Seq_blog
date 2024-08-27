@@ -8,12 +8,12 @@ mermaid: true
 ---
 
 > ##### Aim for this page
-> Know what kind of databases in expression analysis
+> Know what kind of databases in expression analysis are available
 {: .block-tip }
 
 ## Quick answer of this page: Raw=SRA, Processed=GEO
 
-Typical differences of the 2 databases:
+I want you to recoginie two important databases, SRA and GEO. Typical differences of the 2 databases:
 
 | Aspect | SRA (Sequence Read Archive) | GEO (Gene Expression Omnibus) |
 |--------|-----------------------------|-----------------------------|
