@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician? · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>20240823 count data from NCBI · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Always being lazy enough to make your life tidy
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
 <link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -28,6 +28,8 @@
             <link rel="prev" href="/" />
         
 
+        
+            <link rel="next" href="/rna-seq/2024-08-23-databases.html" />
         
     </head>
     <body>
@@ -89,12 +91,23 @@
                             <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-23-easy_rna-seq.html">
                             
                                 <a href="/rna-seq/2024-08-23-easy_rna-seq.html" onclick="pageScrollToTop(this)">
-                                    How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician?
+                                    20240823 count data from NCBI
                                 </a>
                                 
                                     
-                                        <ul><li><a href="#1-what-kind-of-database-is-available-in-expression-analysis" onclick="mobilePageScrollToAnchor(this)" >1. What kind of database is available in expression analysis?</a></li></ul>
+                                        <ul><li><a href="#quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use NCBI generates RNA-seq count data</a><ul><li><a href="#rna-seq-raw-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Raw Count Matrix:</a></li><li><a href="#rna-seq-normalized-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Normalized Count Matrix:</a></li><li><a href="#how-the-analysis-works" onclick="mobilePageScrollToAnchor(this)" >How the analysis works?</a></li></ul></li></ul>
 
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-databases.html">
+                            
+                                <a href="/rna-seq/2024-08-23-databases.html" onclick="pageScrollToTop(this)">
+                                    20240825 Databases
+                                </a>
+                                
                                     
                                 
                             </li>
@@ -161,7 +174,7 @@
                     <h1>
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                         
-                            <a href="." >How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician?</a>
+                            <a href="." >20240823 count data from NCBI</a>
                         
                     </h1>
                 </div>
@@ -174,34 +187,95 @@
             <div class="search-noresults">
                 <section class="normal markdown-section">
                     
-                        <h1 id="/rna-seq/easy_rna-seq">How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician?</h1>
+                        <h1 id="/rna-seq/easy_rna-seq">20240823 count data from NCBI</h1>
                     
 
                     <blockquote class="block-tip">
   <h5 id="aim-for-this-page">Aim for this page</h5>
-  <p>Know what kind of databases in expression analysis are there and how you can use them</p>
+  <p>Know NCBI’s service: auto-generated RNA-seq count data</p>
 </blockquote>
 
-<h3 id="1-what-kind-of-database-is-available-in-expression-analysis">1. What kind of database is available in expression analysis?</h3>
+<h2 id="quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data">Quick answer of this page: Use NCBI generates RNA-seq count data</h2>
 
 <blockquote>
   <p>You are very fortunate.</p>
 </blockquote>
 
-<p>What NCBI-generated RNA-seq count files are available
-Counts have been generated for all historical human RNA-seq runs submitted to GEO. For each GEO Series, the following files are generated:</p>
+<p>NCBI launched a new service to make <a href="https://ncbiinsights.ncbi.nlm.nih.gov/2023/04/19/human-rna-seq-geo/?utm_source=ncbi_twitter&amp;utm_medium=referral&amp;utm_campaign=geo-human-rna-seq-20230419">the count matrix of RNA-Seq</a> available!</p>
 
-<p>Series RNA-seq raw counts matrix
-Series RNA-seq raw counts matrices are tab-delimited text files that may be suitable for input for differential expression analysis tools like DESeq2, edgeR or limma voom. The first column in the matrix contains unique Gene IDs that match the Gene ID column in the accompanying Human gene annotation table (see below). Remaining columns contain raw counts for each GEO Sample in the Series.</p>
+<p>Count data generation occurs under <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#raw">the following conditions</a>:</p>
 
-<p>Series RNA-seq normalized counts matrix
-Series RNA-seq normalized counts matrices are tab-delimited text files that may be suitable input for qualitative analysis and visualizing gene expression abundance. The first column in the matrix contains unique Gene IDs that match the Gene ID column in the accompanying Human gene annotation table (see below). Remaining columns contain counts for each GEO Sample in the Series.</p>
+<pre><code class="language-bash=">1. The sample is registered in the Sequence Read Archive (SRA)
+2. The sample is registered in the Gene Expression Omnibus (GEO)
+3. The sample is derived from either human or mouse
+</code></pre>
 
-<p>These counts are normalized according to sequencing depth and gene length.</p>
+<p>A count matrix is automatically generated approximately one week after sample registration.
+For each GEO Series, two main types of files are generated, raw counts and normalized counts.</p>
 
-<p>The FPKM counts represent Fragments Per Kilobase Million (for paired-end sequencing data) or Reads Per Kilobase Million (single end). Note that file is named FPKM in both cases. The TPM counts represent Transcripts Per Kilobase Million.</p>
+<h3 id="rna-seq-raw-count-matrix">RNA-seq Raw Count Matrix:</h3>
 
-<p>For more information about normalized counts, see FPKM, RPKM and TPM, and be aware of misuses.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for input into differential expression analysis tools like DESeq2, edgeR, or limma voom</td>
+    </tr>
+    <tr>
+      <td>Structure</td>
+      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Raw counts for each GEO Sample</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rna-seq-normalized-count-matrix">RNA-seq Normalized Count Matrix:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for qualitative analysis and visualization of gene expression abundance</td>
+    </tr>
+    <tr>
+      <td>Structure</td>
+      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Normalized counts for each GEO Sample</td>
+    </tr>
+    <tr>
+      <td>Normalization</td>
+      <td>FPKM (RPKM) and TPM</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="how-the-analysis-works">How the analysis works?</h3>
+
+<p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>.</p>
+
+<blockquote>
+  <p>Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.</p>
+</blockquote>
+
+<p>Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway.</p>
 </section>
             </div><div class="search-results">
     <div class="has-results">
@@ -264,6 +338,10 @@ window.MathJax = {
                     
 
                     
+                        <a href="/rna-seq/2024-08-23-databases.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 20240825 Databases">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    
                 </div>
             </div>
 
@@ -275,6 +353,15 @@ window.MathJax = {
         "title": "Introduction",
         "level": "1.1",
         "depth": 1,
+        
+        "next": {
+            "title": "20240825 Databases",
+            "level": "1.2",
+            "depth": 1,
+            "path": "_posts/2024-08-25-databases.md",
+            "ref": "_posts/2024-08-25-databases.md",
+            "articles": []
+        },
         
         "dir": "ltr"
     },    "config": {
@@ -370,7 +457,7 @@ window.MathJax = {
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2024-08-23 05:18:43 -0500"
+        "time": "2024-08-27 04:40:05 -0500"
     },
     "basePath": "",
     "book": {

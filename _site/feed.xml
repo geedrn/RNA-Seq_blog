@@ -1,26 +1,222 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2024-08-23T05:18:43-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Ryo’s sandbox</title><subtitle>Always being lazy enough to make your life tidy
-</subtitle><author><name>Ryo Niwa</name></author><entry><title type="html">How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician?</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-23-easy_rna-seq.html" rel="alternate" type="text/html" title="How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician?" /><published>2024-08-23T00:00:00-05:00</published><updated>2024-08-23T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/easy_rna-seq</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-23-easy_rna-seq.html"><![CDATA[<blockquote class="block-tip">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2024-08-27T04:40:05-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Ryo’s sandbox</title><subtitle>Always being lazy enough to make your life tidy
+</subtitle><author><name>Ryo Niwa</name></author><entry><title type="html">20240823 count data from NCBI</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-23-easy_rna-seq.html" rel="alternate" type="text/html" title="20240823 count data from NCBI" /><published>2024-08-23T00:00:00-05:00</published><updated>2024-08-23T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/easy_rna-seq</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-23-easy_rna-seq.html"><![CDATA[<blockquote class="block-tip">
   <h5 id="aim-for-this-page">Aim for this page</h5>
-  <p>Know what kind of databases in expression analysis are there and how you can use them</p>
+  <p>Know NCBI’s service: auto-generated RNA-seq count data</p>
 </blockquote>
 
-<h3 id="1-what-kind-of-database-is-available-in-expression-analysis">1. What kind of database is available in expression analysis?</h3>
+<h2 id="quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data">Quick answer of this page: Use NCBI generates RNA-seq count data</h2>
 
 <blockquote>
   <p>You are very fortunate.</p>
 </blockquote>
 
-<p>What NCBI-generated RNA-seq count files are available
-Counts have been generated for all historical human RNA-seq runs submitted to GEO. For each GEO Series, the following files are generated:</p>
+<p>NCBI launched a new service to make <a href="https://ncbiinsights.ncbi.nlm.nih.gov/2023/04/19/human-rna-seq-geo/?utm_source=ncbi_twitter&amp;utm_medium=referral&amp;utm_campaign=geo-human-rna-seq-20230419">the count matrix of RNA-Seq</a> available!</p>
 
-<p>Series RNA-seq raw counts matrix
-Series RNA-seq raw counts matrices are tab-delimited text files that may be suitable for input for differential expression analysis tools like DESeq2, edgeR or limma voom. The first column in the matrix contains unique Gene IDs that match the Gene ID column in the accompanying Human gene annotation table (see below). Remaining columns contain raw counts for each GEO Sample in the Series.</p>
+<p>Count data generation occurs under <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#raw">the following conditions</a>:</p>
 
-<p>Series RNA-seq normalized counts matrix
-Series RNA-seq normalized counts matrices are tab-delimited text files that may be suitable input for qualitative analysis and visualizing gene expression abundance. The first column in the matrix contains unique Gene IDs that match the Gene ID column in the accompanying Human gene annotation table (see below). Remaining columns contain counts for each GEO Sample in the Series.</p>
+<pre><code class="language-bash=">1. The sample is registered in the Sequence Read Archive (SRA)
+2. The sample is registered in the Gene Expression Omnibus (GEO)
+3. The sample is derived from either human or mouse
+</code></pre>
 
-<p>These counts are normalized according to sequencing depth and gene length.</p>
+<p>A count matrix is automatically generated approximately one week after sample registration.
+For each GEO Series, two main types of files are generated, raw counts and normalized counts.</p>
 
-<p>The FPKM counts represent Fragments Per Kilobase Million (for paired-end sequencing data) or Reads Per Kilobase Million (single end). Note that file is named FPKM in both cases. The TPM counts represent Transcripts Per Kilobase Million.</p>
+<h3 id="rna-seq-raw-count-matrix">RNA-seq Raw Count Matrix:</h3>
 
-<p>For more information about normalized counts, see FPKM, RPKM and TPM, and be aware of misuses.</p>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Know what kind of databases in expression analysis are there and how you can use them]]></summary></entry></feed>
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for input into differential expression analysis tools like DESeq2, edgeR, or limma voom</td>
+    </tr>
+    <tr>
+      <td>Structure</td>
+      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Raw counts for each GEO Sample</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rna-seq-normalized-count-matrix">RNA-seq Normalized Count Matrix:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for qualitative analysis and visualization of gene expression abundance</td>
+    </tr>
+    <tr>
+      <td>Structure</td>
+      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Normalized counts for each GEO Sample</td>
+    </tr>
+    <tr>
+      <td>Normalization</td>
+      <td>FPKM (RPKM) and TPM</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="how-the-analysis-works">How the analysis works?</h3>
+
+<p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>.</p>
+
+<blockquote>
+  <p>Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.</p>
+</blockquote>
+
+<p>Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway.</p>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Know NCBI’s service: auto-generated RNA-seq count data]]></summary></entry><entry><title type="html">20240825 Databases</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-23-databases.html" rel="alternate" type="text/html" title="20240825 Databases" /><published>2024-08-23T00:00:00-05:00</published><updated>2024-08-23T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/databases</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-23-databases.html"><![CDATA[<blockquote class="block-tip">
+  <h5 id="aim-for-this-page">Aim for this page</h5>
+  <p>Know what kind of databases in expression analysis</p>
+</blockquote>
+
+<h2 id="quick-answer-of-this-page-rawsra-processedgeo">Quick answer of this page: Raw=SRA, Processed=GEO</h2>
+
+<p>Typical differences of the 2 databases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>SRA (Sequence Read Archive)</th>
+      <th>GEO (Gene Expression Omnibus)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Purpose</td>
+      <td>Raw sequence data repository</td>
+      <td>Functional genomics data repository</td>
+    </tr>
+    <tr>
+      <td>Data type</td>
+      <td>Raw sequencing data (fastq, bam)</td>
+      <td>Processed data, metadata, and raw data links</td>
+    </tr>
+    <tr>
+      <td>Scope</td>
+      <td>All sequencing platforms and applications</td>
+      <td>Primarily gene expression data, but includes other functional genomics data</td>
+    </tr>
+    <tr>
+      <td>Data size</td>
+      <td>Typically larger files (raw data)</td>
+      <td>Usually smaller files (processed data)</td>
+    </tr>
+    <tr>
+      <td>Search capability</td>
+      <td>Sequence-based searches</td>
+      <td>Expression and metadata-based searches</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>SRA description: <a href="https://www.ncbi.nlm.nih.gov/sra/docs/">https://www.ncbi.nlm.nih.gov/sra/docs/</a></p>
+
+<p>GEO description: <a href="https://www.ncbi.nlm.nih.gov/geo/info/overview.html">https://www.ncbi.nlm.nih.gov/geo/info/overview.html</a></p>
+
+<h3 id="databases-are-linked-to-each-other">Databases are linked to each other</h3>
+
+<p><a href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE275240">GSE275240</a> is our lab’s previous paper’s data accession ID. This GSE275240 is connected to another database called BioProject under <a href="https://www.ncbi.nlm.nih.gov/bioproject/PRJDB15620">PRJDB15620</a>. BioProject contains SRA Run as sequence data and BioSample to explain what each sequence data is derived from. Certainly. SRA ‘Experiment’ describes the sequencing library derived from a specific sample and the sequencing method used. Much of the publicly available information about the data is recorded in the Experiment. SRA ‘Run’ is an object that groups together data files that should be linked to an Experiment. It contains little descriptive information about the data itself. All data files listed in a Run are merged into an SRA file for archiving (and into fastq files for distribution).</p>
+
+<h3 id="database-structure">Database structure</h3>
+
+<p>This is an overall structure of SRA/BioSample/BioProject. The picture below is cited from <a href="https://www.ddbj.nig.ac.jp/biosample/overview.html">DDBJ</a>.</p>
+
+<p><img src="/assets/sra_object.png" alt="SRA_structure" /></p>
+
+<p>Since it does not contain GEO, I just added in a mermaid plot. BioProject is a database designed to organize research projects and their associated data. By citing the BioProject accession number, data can be grouped on a project-by-project basis. BioSample and GEO Sample (GSM) ultimately explains the identical information.</p>
+
+<pre><code class="language-mermaid">graph TD
+    subgraph BioProject["BioProject"]
+        BP[BioProject PRJD]
+    end
+
+    subgraph BioSample["BioSample"]
+        BS1[BioSample SAMD]
+        BS2[BioSample SAMD]
+        BS3[BioSample SAMD]
+    end
+
+    subgraph SRA["Sequence Read Archive"]
+        E[Experiment SRX-DRX]
+        E --&gt; LL["Library layout"]
+        E --&gt; SP["Sequencing platform"]
+        R1[Run SRR-DRR]
+        R2[Run SRR-DRR]
+        R3[Run SRR-DRR]
+        SDF["Sequence data files fastq, BAM"]
+        R1 -.-&gt; SDF
+        R2 -.-&gt; SDF
+        R3 -.-&gt; SDF
+    end
+
+    subgraph GEO["Gene Expression Omnibus"]
+        GSE[GEO Series GSE]
+        GSM1[GEO Sample GSM]
+        GSM2[GEO Sample GSM]
+        GSM3[GEO Sample GSM]
+        GSE --&gt; GSM1
+        GSE --&gt; GSM2
+        GSE --&gt; GSM3
+        GSM3 --&gt; GD["Gene expression data"]
+    end
+
+    BP --&gt; BS1
+    BP --&gt; BS2
+    BP --&gt; BS3
+    BP --&gt; E
+    BP --&gt; GSE
+
+    GSM1 -.-&gt; R1
+    GSM2 -.-&gt; R2
+    GSM3 -.-&gt; R3
+    
+    BS1 --&gt; E
+    BS2 --&gt; E
+    BS3 --&gt; E
+
+    E --&gt; R1
+    E --&gt; R2
+    E --&gt; R3
+
+    classDef bioproject fill:#e6ffe6,stroke:#333,stroke-width:2px;
+    classDef biosample fill:#fff0e6,stroke:#333,stroke-width:2px;
+    classDef sra fill:#e6e6ff,stroke:#333,stroke-width:2px;
+    classDef geo fill:#ffe6e6,stroke:#333,stroke-width:2px;
+
+    class BP,PD,G,Pub bioproject;
+    class BS1,BS2,BS3,SD biosample;
+    class E,LL,SP,R1,R2,R3,DF,SDF sra;
+    class GSE,GSM1,GSM2,GSM3,GD geo;
+
+    style BioProject fill:#e6ffe6,stroke:#333,stroke-width:4px;
+    style BioSample fill:#fff0e6,stroke:#333,stroke-width:4px;
+    style SRA fill:#e6e6ff,stroke:#333,stroke-width:4px;
+    style GEO fill:#ffe6e6,stroke:#333,stroke-width:4px;
+</code></pre>
+
+<blockquote class="block-tip">
+  <h5 id="drasra-differences">DRA/SRA differences?</h5>
+  <p>DRA (DDBJ Sequence Read Archive) is an archive of raw read sequences and maintained by DDBJ. 
+DRA (DDBJ Sequence Read Archive) is a member of the International Nucleotide Sequence Database Collaboration (INSDC) and is operated in international cooperation with NCBI SRA and EBI Sequence Read Archive (ERA). The data is mirrored (synchronized). If you can find the same dataset in SRA and DRA, downloading from DRA is geographically much faster.</p>
+</blockquote>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Know what kind of databases in expression analysis]]></summary></entry></feed>

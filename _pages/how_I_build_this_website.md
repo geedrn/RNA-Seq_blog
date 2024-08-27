@@ -12,10 +12,10 @@ I simply forked the repository from the github and pasted them into my own repo.
 I use docker-ed jekyll for local procedures,. Here is my typicall command for a quick check after updating markdown.
 
 ```bash=
-JEKYLL_VERSION=4.2.0 docker run --rm \
+docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
   --publish 127.0.0.1:4000:4000 \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
+  -it jekyll/jekyll:4.2.0 \
   sh -c "bundle install && jekyll serve"
 ```
 

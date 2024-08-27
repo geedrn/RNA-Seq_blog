@@ -89,7 +89,18 @@
                             <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-easy_rna-seq.html">
                             
                                 <a href="/rna-seq/2024-08-23-easy_rna-seq.html" onclick="pageScrollToTop(this)">
-                                    How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician?
+                                    20240823 count data from NCBI
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-databases.html">
+                            
+                                <a href="/rna-seq/2024-08-23-databases.html" onclick="pageScrollToTop(this)">
+                                    20240825 Databases
                                 </a>
                                 
                                     
@@ -182,10 +193,10 @@ I simply forked the repository from the github and pasted them into my own repo.
 
 <p>I use docker-ed jekyll for local procedures,. Here is my typicall command for a quick check after updating markdown.</p>
 
-<pre><code class="language-bash=">JEKYLL_VERSION=4.2.0 docker run --rm \
+<pre><code class="language-bash=">docker run --rm \
   --volume="$PWD:/srv/jekyll:Z" \
   --publish 127.0.0.1:4000:4000 \
-  -it jekyll/jekyll:$JEKYLL_VERSION \
+  -it jekyll/jekyll:4.2.0 \
   sh -c "bundle install &amp;&amp; jekyll serve"
 </code></pre>
 
@@ -358,7 +369,7 @@ window.MathJax = {
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2024-08-23 05:18:43 -0500"
+        "time": "2024-08-27 04:40:05 -0500"
     },
     "basePath": "",
     "book": {
