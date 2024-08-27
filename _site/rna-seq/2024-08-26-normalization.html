@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Sandox · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>20240826 Normalization · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Always being lazy enough to make your life tidy
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
 <link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -25,9 +25,9 @@
 
 
 
-
+            <link rel="prev" href="/rna-seq/2024-08-23-databases.html" />
         
-            <link rel="next" href="/rna-seq/2024-08-23-count.html" />
+
         
     </head>
     <body>
@@ -65,7 +65,7 @@
         </div>
         <ul class="summary">
             
-            <li class="chapter active" data-level="1.1" data-path="">
+            <li class="chapter" data-level="1.1" data-path="">
             
                 <a href="/" onclick="pageScrollToTop(this)">
                     Ryo&#39;s sandbox
@@ -108,12 +108,15 @@
                             </li>
                         
                             
-                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-normalization.html">
+                            <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-26-normalization.html">
                             
                                 <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
                                     20240826 Normalization
                                 </a>
                                 
+                                    
+                                        <ul><li><a href="#quick-answer-of-this-page-use-tpm-first" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use TPM first</a><ul><li><a href="#examples-and-details" onclick="mobilePageScrollToAnchor(this)" >Examples and details</a></li><li><a href="#why-are-the-differences-in-total-of-fpkm-and-tpm-occured" onclick="mobilePageScrollToAnchor(this)" >Why are the differences in total of FPKM and TPM occured?</a></li></ul></li></ul>
+
                                     
                                 
                             </li>
@@ -180,7 +183,7 @@
                     <h1>
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                         
-                            <a href="." >Sandox</a>
+                            <a href="." >20240826 Normalization</a>
                         
                     </h1>
                 </div>
@@ -193,10 +196,175 @@
             <div class="search-noresults">
                 <section class="normal markdown-section">
                     
-                        <h1 id="">Sandox</h1>
+                        <h1 id="/rna-seq/normalization">20240826 Normalization</h1>
                     
 
-                    <p>This website is for sharing markdown lab notes and my sandbox idea with others.</p>
+                    <blockquote class="block-tip">
+  <h5 id="aim-for-this-page">Aim for this page</h5>
+  <p>Understand methods of normalization in RNA-Seq</p>
+</blockquote>
+
+<h2 id="quick-answer-of-this-page-use-tpm-first">Quick answer of this page: Use TPM first</h2>
+
+<p>Before discussing this topic, this <a href="https://bioinformatics.ccr.cancer.gov/btep/questions/what-is-the-difference-between-rpkm-fpkm-and-tpm">QA</a> is must-read!</p>
+
+<p>RPKM and FPKM are virtually the same concept. RPKM is basically for single-end sequencing and FPKM is for pair-end sequencing.</p>
+<blockquote>
+  <p>With paired-end RNA-seq, two reads can correspond to a single fragment, or, if one read in the pair did not map, one read can correspond to a single fragment. The only difference between RPKM and FPKM is that FPKM takes into account that two reads can map to one fragment (and so it doesn’t count this fragment twice).</p>
+</blockquote>
+
+<p>For RPKM (Reads Per Kilobase Million):</p>
+
+\[\text{RPKM} = \frac{\text{Number of reads mapped to a gene}}{\text{Total reads in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+
+<p>For FPKM (Fragments Per Kilobase Million):</p>
+
+\[\text{FPKM} = \frac{\text{Number of fragments mapped to a gene}}{\text{Total fragments in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+
+<p>For TPM, there are two steps:</p>
+
+<p>Calculate RPK (Reads Per Kilobase):</p>
+
+\[\text{RPK} = \frac{\text{Number of reads mapped to a gene}}{\text{Length of gene in kb}}\]
+
+<p>Calculate TPM (Transcripts Per Kilobase Million):</p>
+
+\[\text{TPM} = \frac{\text{RPK for a gene} \times 10^6}{\text{Sum of all RPK values in the sample}}\]
+
+<blockquote>
+  <p>when calculating TPM, the only difference is that you normalize for gene length first, and then normalize for sequencing depth second. However, the effects of this difference are quite profound. When you use TPM, the sum of all TPMs in each sample are the same. This makes it easier to compare the proportion of reads that mapped to a gene in each sample. In contrast, with RPKM and FPKM, the sum of the normalized reads in each sample may be different, and this makes it harder to compare samples directly.</p>
+</blockquote>
+
+<h3 id="examples-and-details">Examples and details</h3>
+
+<p>Let’s try some examples from this <a href="https://bi.biopapyrus.jp/rnaseq/analysis/normalizaiton/fpkm.html">blog</a>.</p>
+
+<p>Example table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>length</th>
+      <th>1000 bp</th>
+      <th>1200 bp</th>
+      <th>800 bp</th>
+      <th>500 bp</th>
+      <th>2000 bp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sample A (count)</td>
+      <td>20</td>
+      <td>30</td>
+      <td>20</td>
+      <td>50</td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <td>sample B (count)</td>
+      <td>100</td>
+      <td>60</td>
+      <td>140</td>
+      <td>120</td>
+      <td>180</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Results (computed by claude):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Transcript Length</th>
+      <th>1000 bp</th>
+      <th>1200 bp</th>
+      <th>800 bp</th>
+      <th>500 bp</th>
+      <th>2000 bp</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sample A (Read Count)</td>
+      <td>20</td>
+      <td>30</td>
+      <td>20</td>
+      <td>50</td>
+      <td>150</td>
+      <td>270</td>
+    </tr>
+    <tr>
+      <td>FPKM (A)</td>
+      <td>74,074</td>
+      <td>92,593</td>
+      <td>92,593</td>
+      <td>370,370</td>
+      <td>277,778</td>
+      <td>907,408</td>
+    </tr>
+    <tr>
+      <td>TPM (A)</td>
+      <td>81,633</td>
+      <td>102,041</td>
+      <td>102,041</td>
+      <td>408,163</td>
+      <td>306,122</td>
+      <td>1,000,000</td>
+    </tr>
+    <tr>
+      <td>Sample B (Read Count)</td>
+      <td>100</td>
+      <td>60</td>
+      <td>140</td>
+      <td>120</td>
+      <td>180</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>FPKM (B)</td>
+      <td>166,667</td>
+      <td>83,333</td>
+      <td>291,667</td>
+      <td>400,000</td>
+      <td>150,000</td>
+      <td>1,091,667</td>
+    </tr>
+    <tr>
+      <td>TPM (B)</td>
+      <td>152,672</td>
+      <td>76,336</td>
+      <td>267,176</td>
+      <td>366,412</td>
+      <td>137,404</td>
+      <td>1,000,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="why-are-the-differences-in-total-of-fpkm-and-tpm-occured">Why are the differences in total of FPKM and TPM occured?</h3>
+
+<p>Wagner, G.P., Kin, K. &amp; Lynch, V.J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. Theory Biosci. 131, 281–285 (2012). <a href="https://doi.org/10.1007/s12064-012-0162-3">https://doi.org/10.1007/s12064-012-0162-3</a></p>
+
+<blockquote>
+  <p>The reason for the inconsistency of RPKM across samples arises from the normalization by the total number of reads. While rmc as well as qPCR results are ratios of transcript concentrations, the RPKM normalizes a proxy for transcript number by</p>
+</blockquote>
+
+\[\frac{r_g \cdot 10^3}{l_g \cdot \frac{R}{10^6}}\]
+
+<blockquote>
+  <p>the number of sequencing reads in millions,</p>
+</blockquote>
+
+\[\frac{R}{10^6}\]
+
+<blockquote>
+  <p>The latter, however, is not a measure of total transcript number. The relationship between \(R\) and the total number of transcripts sampled depends on the size distribution of RNA transcripts, which can differ between samples. In a sample with, on average, longer transcripts the same number of reads represents fewer transcripts.</p>
+</blockquote>
+
+<p>While TPM is essentially the ratio of each gene’s RPK to the total RPK, RPKM (FPKM) can be considered as the ratio of each gene’s RPK to the total number of reads. When longer genes have more reads, the overall RPK effectively becomes smaller, resulting in a discrepancy in the total values.</p>
 </section>
             </div><div class="search-results">
     <div class="has-results">
@@ -229,6 +397,38 @@ window.MathJax = {
 
 <!-- introduce per-page mermaid support -->
 
+    <script>
+    function render_mermaid() {
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: "default",
+        });
+        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+    }
+
+    function initialize_mermaid() {
+        if (document.readyState === "loading") {
+            // Loading hasn't finished yet
+            document.addEventListener("DOMContentLoaded", render_mermaid);
+        } else {
+            // `DOMContentLoaded` has already fired
+            render_mermaid();
+        }
+    }
+
+    if (window.mermaid_script && window.mermaid) {
+        initialize_mermaid();
+    } else {
+        window.mermaid_script = document.createElement("script");
+        mermaid_script.onload = initialize_mermaid;
+        document.head.appendChild(mermaid_script);
+        mermaid_script.defer = true;
+        mermaid_script.id = 'mermaid-script';
+        mermaid_script.src = 'https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js';
+    }
+</script>
+
+
 
 <!-- introduce mathjax support -->
 <script>
@@ -252,14 +452,12 @@ window.MathJax = {
     }
 </script>
 
-<a href="/" class="navigation navigation-pre navigation-unique">
-                        <i class="fa"></i>
-                    </a>
 
-                    
-                        <a href="/others/about/" class="navigation navigation-next navigation-unique" aria-label="Next page: About">
-                            <i class="fa fa-angle-right"></i>
+                        <a href="/rna-seq/2024-08-23-databases.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 20240825 Databases">
+                            <i class="fa fa-angle-left"></i>
                         </a>
+                    
+
                     
                 </div>
             </div>
@@ -272,17 +470,6 @@ window.MathJax = {
         "title": "Introduction",
         "level": "1.1",
         "depth": 1,
-        
-
-        
-        "next": {
-            "title": "20240823 count data from NCBI",
-            "level": "1.2",
-            "depth": 1,
-            "path": "_posts/2024-08-23-count.md",
-            "ref": "_posts/2024-08-23-count.md",
-            "articles": []
-        },
         
         "dir": "ltr"
     },    "config": {
@@ -372,8 +559,8 @@ window.MathJax = {
         "gitbook": "*"
     },
     "file": {
-        "path": "README.md",
-        "mtime": "",
+        "path": "_posts/2024-08-26-normalization.md",
+        "mtime": "2024-08-26 00:00:00 -0500",
         "type": "markdown"
     },
     "gitbook": {

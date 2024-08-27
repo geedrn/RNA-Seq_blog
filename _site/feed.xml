@@ -1,93 +1,170 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2024-08-27T04:59:56-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Ryo’s sandbox</title><subtitle>Always being lazy enough to make your life tidy
-</subtitle><author><name>Ryo Niwa</name></author><entry><title type="html">20240823 count data from NCBI</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-23-count.html" rel="alternate" type="text/html" title="20240823 count data from NCBI" /><published>2024-08-23T00:00:00-05:00</published><updated>2024-08-23T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/count</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-23-count.html"><![CDATA[<blockquote class="block-tip">
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2024-08-27T06:46:13-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Ryo’s sandbox</title><subtitle>Always being lazy enough to make your life tidy
+</subtitle><author><name>Ryo Niwa</name></author><entry><title type="html">20240826 Normalization</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-26-normalization.html" rel="alternate" type="text/html" title="20240826 Normalization" /><published>2024-08-26T00:00:00-05:00</published><updated>2024-08-26T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/normalization</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-26-normalization.html"><![CDATA[<blockquote class="block-tip">
   <h5 id="aim-for-this-page">Aim for this page</h5>
-  <p>Know NCBI’s service: auto-generated RNA-seq count data</p>
+  <p>Understand methods of normalization in RNA-Seq</p>
 </blockquote>
 
-<h2 id="quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data">Quick answer of this page: Use NCBI generates RNA-seq count data</h2>
+<h2 id="quick-answer-of-this-page-use-tpm-first">Quick answer of this page: Use TPM first</h2>
+
+<p>Before discussing this topic, this <a href="https://bioinformatics.ccr.cancer.gov/btep/questions/what-is-the-difference-between-rpkm-fpkm-and-tpm">QA</a> is must-read!</p>
+
+<p>RPKM and FPKM are virtually the same concept. RPKM is basically for single-end sequencing and FPKM is for pair-end sequencing.</p>
+<blockquote>
+  <p>With paired-end RNA-seq, two reads can correspond to a single fragment, or, if one read in the pair did not map, one read can correspond to a single fragment. The only difference between RPKM and FPKM is that FPKM takes into account that two reads can map to one fragment (and so it doesn’t count this fragment twice).</p>
+</blockquote>
+
+<p>For RPKM (Reads Per Kilobase Million):</p>
+
+\[\text{RPKM} = \frac{\text{Number of reads mapped to a gene}}{\text{Total reads in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+
+<p>For FPKM (Fragments Per Kilobase Million):</p>
+
+\[\text{FPKM} = \frac{\text{Number of fragments mapped to a gene}}{\text{Total fragments in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+
+<p>For TPM, there are two steps:</p>
+
+<p>Calculate RPK (Reads Per Kilobase):</p>
+
+\[\text{RPK} = \frac{\text{Number of reads mapped to a gene}}{\text{Length of gene in kb}}\]
+
+<p>Calculate TPM (Transcripts Per Kilobase Million):</p>
+
+\[\text{TPM} = \frac{\text{RPK for a gene} \times 10^6}{\text{Sum of all RPK values in the sample}}\]
 
 <blockquote>
-  <p>You are very fortunate.</p>
+  <p>when calculating TPM, the only difference is that you normalize for gene length first, and then normalize for sequencing depth second. However, the effects of this difference are quite profound. When you use TPM, the sum of all TPMs in each sample are the same. This makes it easier to compare the proportion of reads that mapped to a gene in each sample. In contrast, with RPKM and FPKM, the sum of the normalized reads in each sample may be different, and this makes it harder to compare samples directly.</p>
 </blockquote>
 
-<p>NCBI launched a new service to make <a href="https://ncbiinsights.ncbi.nlm.nih.gov/2023/04/19/human-rna-seq-geo/?utm_source=ncbi_twitter&amp;utm_medium=referral&amp;utm_campaign=geo-human-rna-seq-20230419">the count matrix of RNA-Seq</a> available!</p>
+<h3 id="examples-and-details">Examples and details</h3>
 
-<p>Count data generation occurs under <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#raw">the following conditions</a>:</p>
+<p>Let’s try some examples from this <a href="https://bi.biopapyrus.jp/rnaseq/analysis/normalizaiton/fpkm.html">blog</a>.</p>
 
-<pre><code class="language-bash=">1. The sample is registered in the Sequence Read Archive (SRA)
-2. The sample is registered in the Gene Expression Omnibus (GEO)
-3. The sample is derived from either human or mouse
-</code></pre>
-
-<p>A count matrix is automatically generated approximately one week after sample registration.
-For each GEO Series, two main types of files are generated, raw counts and normalized counts.</p>
-
-<h3 id="rna-seq-raw-count-matrix">RNA-seq Raw Count Matrix:</h3>
+<p>Example table:</p>
 
 <table>
   <thead>
     <tr>
-      <th>Aspect</th>
-      <th>Description</th>
+      <th>length</th>
+      <th>1000 bp</th>
+      <th>1200 bp</th>
+      <th>800 bp</th>
+      <th>500 bp</th>
+      <th>2000 bp</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Format</td>
-      <td>Tab-delimited text file</td>
+      <td>sample A (count)</td>
+      <td>20</td>
+      <td>30</td>
+      <td>20</td>
+      <td>50</td>
+      <td>150</td>
     </tr>
     <tr>
-      <td>Purpose</td>
-      <td>Suitable for input into differential expression analysis tools like DESeq2, edgeR, or limma voom</td>
-    </tr>
-    <tr>
-      <td>Structure</td>
-      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Raw counts for each GEO Sample</td>
+      <td>sample B (count)</td>
+      <td>100</td>
+      <td>60</td>
+      <td>140</td>
+      <td>120</td>
+      <td>180</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="rna-seq-normalized-count-matrix">RNA-seq Normalized Count Matrix:</h3>
+<p>Results (computed by claude):</p>
 
 <table>
   <thead>
     <tr>
-      <th>Aspect</th>
-      <th>Description</th>
+      <th>Transcript Length</th>
+      <th>1000 bp</th>
+      <th>1200 bp</th>
+      <th>800 bp</th>
+      <th>500 bp</th>
+      <th>2000 bp</th>
+      <th>Total</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Format</td>
-      <td>Tab-delimited text file</td>
+      <td>Sample A (Read Count)</td>
+      <td>20</td>
+      <td>30</td>
+      <td>20</td>
+      <td>50</td>
+      <td>150</td>
+      <td>270</td>
     </tr>
     <tr>
-      <td>Purpose</td>
-      <td>Suitable for qualitative analysis and visualization of gene expression abundance</td>
+      <td>FPKM (A)</td>
+      <td>74,074</td>
+      <td>92,593</td>
+      <td>92,593</td>
+      <td>370,370</td>
+      <td>277,778</td>
+      <td>907,408</td>
     </tr>
     <tr>
-      <td>Structure</td>
-      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Normalized counts for each GEO Sample</td>
+      <td>TPM (A)</td>
+      <td>81,633</td>
+      <td>102,041</td>
+      <td>102,041</td>
+      <td>408,163</td>
+      <td>306,122</td>
+      <td>1,000,000</td>
     </tr>
     <tr>
-      <td>Normalization</td>
-      <td>FPKM (RPKM) and TPM</td>
+      <td>Sample B (Read Count)</td>
+      <td>100</td>
+      <td>60</td>
+      <td>140</td>
+      <td>120</td>
+      <td>180</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>FPKM (B)</td>
+      <td>166,667</td>
+      <td>83,333</td>
+      <td>291,667</td>
+      <td>400,000</td>
+      <td>150,000</td>
+      <td>1,091,667</td>
+    </tr>
+    <tr>
+      <td>TPM (B)</td>
+      <td>152,672</td>
+      <td>76,336</td>
+      <td>267,176</td>
+      <td>366,412</td>
+      <td>137,404</td>
+      <td>1,000,000</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="how-does-the-analysis-work">How does the analysis work?</h3>
+<h3 id="why-are-the-differences-in-total-of-fpkm-and-tpm-occured">Why are the differences in total of FPKM and TPM occured?</h3>
 
-<p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>.</p>
+<p>Wagner, G.P., Kin, K. &amp; Lynch, V.J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. Theory Biosci. 131, 281–285 (2012). <a href="https://doi.org/10.1007/s12064-012-0162-3">https://doi.org/10.1007/s12064-012-0162-3</a></p>
 
 <blockquote>
-  <p>Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.</p>
+  <p>The reason for the inconsistency of RPKM across samples arises from the normalization by the total number of reads. While rmc as well as qPCR results are ratios of transcript concentrations, the RPKM normalizes a proxy for transcript number by</p>
 </blockquote>
 
-<blockquote class="block-tip">
-  <h5 id="this-way-of-the-output-is-atarimae-natural-in-rna-seq-field">This way of the output is Atarimae (natural) in RNA-Seq field</h5>
-  <p>Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway.</p>
-</blockquote>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Know NCBI’s service: auto-generated RNA-seq count data]]></summary></entry><entry><title type="html">20240825 Databases</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-23-databases.html" rel="alternate" type="text/html" title="20240825 Databases" /><published>2024-08-23T00:00:00-05:00</published><updated>2024-08-23T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/databases</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-23-databases.html"><![CDATA[<blockquote class="block-tip">
+\[\frac{r_g \cdot 10^3}{l_g \cdot \frac{R}{10^6}}\]
+
+<blockquote>
+  <p>the number of sequencing reads in millions,</p>
+</blockquote>
+
+\[\frac{R}{10^6}\]
+
+<blockquote>
+  <p>The latter, however, is not a measure of total transcript number. The relationship between \(R\) and the total number of transcripts sampled depends on the size distribution of RNA transcripts, which can differ between samples. In a sample with, on average, longer transcripts the same number of reads represents fewer transcripts.</p>
+</blockquote>
+
+<p>While TPM is essentially the ratio of each gene’s RPK to the total RPK, RPKM (FPKM) can be considered as the ratio of each gene’s RPK to the total number of reads. When longer genes have more reads, the overall RPK effectively becomes smaller, resulting in a discrepancy in the total values.</p>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Understand methods of normalization in RNA-Seq]]></summary></entry><entry><title type="html">20240825 Databases</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-23-databases.html" rel="alternate" type="text/html" title="20240825 Databases" /><published>2024-08-23T00:00:00-05:00</published><updated>2024-08-23T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/databases</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-23-databases.html"><![CDATA[<blockquote class="block-tip">
   <h5 id="aim-for-this-page">Aim for this page</h5>
   <p>Know what kind of databases in expression analysis are available</p>
 </blockquote>
@@ -222,4 +299,92 @@ For each GEO Series, two main types of files are generated, raw counts and norma
   <h5 id="drasra-differences">DRA/SRA differences?</h5>
   <p>DRA (DDBJ Sequence Read Archive) is an archive of raw read sequences and maintained by DDBJ. 
 DRA (DDBJ Sequence Read Archive) is a member of the International Nucleotide Sequence Database Collaboration (INSDC) and is operated in international cooperation with NCBI SRA and EBI Sequence Read Archive (ERA). The data is mirrored (synchronized). If you can find the same dataset in SRA and DRA, downloading from DRA is geographically much faster.</p>
-</blockquote>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Know what kind of databases in expression analysis are available]]></summary></entry></feed>
+</blockquote>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Know what kind of databases in expression analysis are available]]></summary></entry><entry><title type="html">20240823 count data from NCBI</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-23-count.html" rel="alternate" type="text/html" title="20240823 count data from NCBI" /><published>2024-08-23T00:00:00-05:00</published><updated>2024-08-23T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/count</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-23-count.html"><![CDATA[<blockquote class="block-tip">
+  <h5 id="aim-for-this-page">Aim for this page</h5>
+  <p>Know NCBI’s service: auto-generated RNA-seq count data</p>
+</blockquote>
+
+<h2 id="quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data">Quick answer of this page: Use NCBI generates RNA-seq count data</h2>
+
+<blockquote>
+  <p>You are very fortunate.</p>
+</blockquote>
+
+<p>NCBI launched a new service to make <a href="https://ncbiinsights.ncbi.nlm.nih.gov/2023/04/19/human-rna-seq-geo/?utm_source=ncbi_twitter&amp;utm_medium=referral&amp;utm_campaign=geo-human-rna-seq-20230419">the count matrix of RNA-Seq</a> available!</p>
+
+<p>Count data generation occurs under <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#raw">the following conditions</a>:</p>
+
+<pre><code class="language-bash=">1. The sample is registered in the Sequence Read Archive (SRA)
+2. The sample is registered in the Gene Expression Omnibus (GEO)
+3. The sample is derived from either human or mouse
+</code></pre>
+
+<p>A count matrix is automatically generated approximately one week after sample registration.
+For each GEO Series, two main types of files are generated, raw counts and normalized counts.</p>
+
+<h3 id="rna-seq-raw-count-matrix">RNA-seq Raw Count Matrix:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for input into differential expression analysis tools like DESeq2, edgeR, or limma voom</td>
+    </tr>
+    <tr>
+      <td>Structure</td>
+      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Raw counts for each GEO Sample</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rna-seq-normalized-count-matrix">RNA-seq Normalized Count Matrix:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for qualitative analysis and visualization of gene expression abundance</td>
+    </tr>
+    <tr>
+      <td>Structure</td>
+      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Normalized counts for each GEO Sample</td>
+    </tr>
+    <tr>
+      <td>Normalization</td>
+      <td>FPKM (RPKM) and TPM</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="how-does-the-analysis-work">How does the analysis work?</h3>
+
+<p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>.</p>
+
+<blockquote>
+  <p>Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.</p>
+</blockquote>
+
+<blockquote class="block-tip">
+  <h5 id="this-way-of-the-output-is-atarimae-natural-in-rna-seq-field">This way of the output is Atarimae (natural) in RNA-Seq field</h5>
+  <p>Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway.</p>
+</blockquote>]]></content><author><name>Ryo Niwa</name></author><category term="RNA-Seq" /><summary type="html"><![CDATA[Aim for this page Know NCBI’s service: auto-generated RNA-seq count data]]></summary></entry></feed>
