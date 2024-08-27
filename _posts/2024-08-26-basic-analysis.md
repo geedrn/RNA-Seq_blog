@@ -15,9 +15,7 @@ mermaid: true
 
 Must-read paper: [RNA sequencing: the teenage years](https://www.nature.com/articles/s41576-019-0150-2)
 
-```
-Stark, R., Grzelak, M. & Hadfield, J. RNA sequencing: the teenage years. Nat Rev Genet 20, 631–656 (2019). https://doi.org/10.1038/s41576-019-0150-2
-```
+**Stark, R., Grzelak, M. & Hadfield, J. RNA sequencing: the teenage years. Nat Rev Genet 20, 631–656 (2019). https://doi.org/10.1038/s41576-019-0150-2**
 
 ### Phase 1 — alignment/mapping of sequencing reads
 > After sequencing has been completed, the starting point for analysis is the data files, which contain base-called sequencing reads, usually in the form of FASTQ files. The most common first step in processing these files is to map sequence reads to a known transcriptome (or annotated genome), converting each sequence read to one or more genomic coordinates. This process has traditionally been accomplished using distinct alignment tools, such as TopHat, STAR or HISAT, which rely on a reference genome.
@@ -51,7 +49,8 @@ Each algorithm creates distinct characteristics in mapping. It has been noted th
 > ##### Assembly of transcripts - why?
 > Some analysis pipeline deploys StringTie as an assembler of transcripts. The main reason is this paper published on nature protocols.
 >
-> Pertea, M., Kim, D., Pertea, G. et al. Transcript-level expression analysis of RNA-seq experiments with HISAT, StringTie and Ballgown. Nat Protoc 11, 1650–1667 (2016). https://doi.org/10.1038/nprot.2016.095
+> Pertea, M., Kim, D., Pertea, G. et al. Transcript-level expression analysis of RNA-seq experiments with HISAT, StringTie and Ballgown. Nat Protoc 11, 1650–1667 (2016). 
+> https://doi.org/10.1038/nprot.2016.095
 >
 > Due to alternative splicing, a single gene can produce multiple types of transcripts. Therefore, when estimating gene expression levels from mapping results,
 > you can decide whether you ignore transcript isoforms and counts per gene (gene-level quantification), or consider isoforms and count for each isoform
