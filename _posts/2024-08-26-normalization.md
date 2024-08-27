@@ -60,7 +60,7 @@ Results (computed by claude):
 | FPKM (B) | 166,667 | 83,333 | 291,667 | 400,000 | 150,000 | 1,091,667 |
 | TPM (B) | 152,672 | 76,336 | 267,176 | 366,412 | 137,404 | 1,000,000 |
 
-### Why are the differences in total of FPKM and TPM occured? 
+### Why are FPKM and TPM different? 
 
 Wagner, G.P., Kin, K. & Lynch, V.J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. Theory Biosci. 131, 281–285 (2012). [https://doi.org/10.1007/s12064-012-0162-3](https://doi.org/10.1007/s12064-012-0162-3)
 

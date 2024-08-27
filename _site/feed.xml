@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2024-08-27T09:49:10-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Ryo’s sandbox</title><subtitle>Always being lazy enough to make your life tidy
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.3">Jekyll</generator><link href="http://0.0.0.0:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:4000/" rel="alternate" type="text/html" /><updated>2024-08-27T09:50:47-05:00</updated><id>http://0.0.0.0:4000/feed.xml</id><title type="html">Ryo’s sandbox</title><subtitle>Always being lazy enough to make your life tidy
 </subtitle><author><name>Ryo Niwa</name></author><entry><title type="html">20240826 Normalization</title><link href="http://0.0.0.0:4000/rna-seq/2024-08-26-normalization.html" rel="alternate" type="text/html" title="20240826 Normalization" /><published>2024-08-26T00:00:00-05:00</published><updated>2024-08-26T00:00:00-05:00</updated><id>http://0.0.0.0:4000/rna-seq/normalization</id><content type="html" xml:base="http://0.0.0.0:4000/rna-seq/2024-08-26-normalization.html"><![CDATA[<blockquote class="block-tip">
   <h5 id="aim-for-this-page">Aim for this page</h5>
   <p>Understand methods of normalization in RNA-Seq</p>
@@ -144,7 +144,7 @@
   </tbody>
 </table>
 
-<h3 id="why-are-the-differences-in-total-of-fpkm-and-tpm-occured">Why are the differences in total of FPKM and TPM occured?</h3>
+<h3 id="why-are-fpkm-and-tpm-different">Why are FPKM and TPM different?</h3>
 
 <p>Wagner, G.P., Kin, K. &amp; Lynch, V.J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. Theory Biosci. 131, 281–285 (2012). <a href="https://doi.org/10.1007/s12064-012-0162-3">https://doi.org/10.1007/s12064-012-0162-3</a></p>
 
