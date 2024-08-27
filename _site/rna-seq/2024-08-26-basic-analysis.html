@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>About · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>20240826 Analysis · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Always being lazy enough to make your life tidy
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
 <link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -25,9 +25,11 @@
 
 
 
-            <link rel="prev" href="/" />
+            <link rel="prev" href="/rna-seq/2024-08-23-databases.html" />
         
 
+        
+            <link rel="next" href="/rna-seq/2024-08-26-normalization.html" />
         
     </head>
     <body>
@@ -108,6 +110,20 @@
                             </li>
                         
                             
+                            <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-26-basic-analysis.html">
+                            
+                                <a href="/rna-seq/2024-08-26-basic-analysis.html" onclick="pageScrollToTop(this)">
+                                    20240826 Analysis
+                                </a>
+                                
+                                    
+                                        <ul><li><a href="#quick-answer-of-this-page-mapping-quantification-normalization" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Mapping, quantification, normalization</a><ul><li><a href="#phase-1--alignmentmapping-of-sequencing-reads" onclick="mobilePageScrollToAnchor(this)" >Phase 1 — alignment/mapping of sequencing reads</a></li><li><a href="#phase-2--quantification-of-transcript-abundance" onclick="mobilePageScrollToAnchor(this)" >Phase 2 — quantification of transcript abundance</a></li><li><a href="#phase-3--filtering-and-normalization" onclick="mobilePageScrollToAnchor(this)" >Phase 3 — filtering and normalization</a></li></ul></li></ul>
+
+                                    
+                                
+                            </li>
+                        
+                            
                             <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-normalization.html">
                             
                                 <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
@@ -153,23 +169,7 @@
                         
 
                         
-                            
-                            <li class="chapter active" data-level="1.2" data-path="/others/about/">
-                            
-                                <a href="/others/about/" onclick="pageScrollToTop(this)">
-                                    About
-                                </a>
-                                
-                                    
-                                        
 
-                                    
-                                
-                            </li>
-                        
-
-                        
-                            <li class="divider"></li>
                         
                     
                 
@@ -183,7 +183,7 @@
                     <h1>
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                         
-                            <a href="." >About</a>
+                            <a href="." >20240826 Analysis</a>
                         
                     </h1>
                 </div>
@@ -196,10 +196,123 @@
             <div class="search-noresults">
                 <section class="normal markdown-section">
                     
-                        <h1 id="/others/about">About</h1>
+                        <h1 id="/rna-seq/basic-analysis">20240826 Analysis</h1>
                     
 
-                    <p>CV: <a href="https://researchmap.jp/ryo.niwa">https://researchmap.jp/ryo.niwa</a></p>
+                    <blockquote class="block-tip">
+  <h5 id="aim-for-this-page">Aim for this page</h5>
+  <p>Understand the basic of RNA-Seq analysis</p>
+</blockquote>
+
+<h2 id="quick-answer-of-this-page-mapping-quantification-normalization">Quick answer of this page: Mapping, quantification, normalization</h2>
+
+<p>Must-read paper: <a href="https://www.nature.com/articles/s41576-019-0150-2">RNA sequencing: the teenage years</a></p>
+
+<p><strong>Stark, R., Grzelak, M. &amp; Hadfield, J. RNA sequencing: the teenage years. Nat Rev Genet 20, 631–656 (2019). https://doi.org/10.1038/s41576-019-0150-2</strong></p>
+
+<h3 id="phase-1--alignmentmapping-of-sequencing-reads">Phase 1 — alignment/mapping of sequencing reads</h3>
+<blockquote>
+  <p>After sequencing has been completed, the starting point for analysis is the data files, which contain base-called sequencing reads, usually in the form of FASTQ files. The most common first step in processing these files is to map sequence reads to a known transcriptome (or annotated genome), converting each sequence read to one or more genomic coordinates. This process has traditionally been accomplished using distinct alignment tools, such as TopHat, STAR or HISAT, which rely on a reference genome.</p>
+</blockquote>
+
+<p>People typically call this first step, alignment or mapping. Long story in short, mapping means:</p>
+
+<p><img src="/assets/mapping.png" alt="SRA_structure" /></p>
+
+<p>Mostly we use reference genomes such as GRCh38 for the reference in mapping. In NCBI, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 (<a href="https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.26/">link</a>) using HISAT2.</p>
+
+<p><strong>A. Bianchi, A. Di Marco and C. Pellegrini, “Comparing HISAT and STAR-based pipelines for RNA-Seq Data Analysis: a real experience,” 2023 IEEE 36th International Symposium on Computer-Based Medical Systems (CBMS), L’Aquila, Italy, 2023, pp. 218-224, doi: 10.1109/CBMS58004.2023.00220.</strong></p>
+
+<p>The paper above describes two major mapping tools in RNA-Seq field, STAR and HISAT.</p>
+
+<blockquote>
+  <p>HISAT2 uses graph FM index (GFM), has a smaller index size, is faster but has limited multi-threading capabilities, and is optimized for both single-end and paired-end reads.</p>
+</blockquote>
+
+<blockquote>
+  <p>STAR2 uses Spliced Transcripts Alignment as a reference algorithm, has a larger index size, higher sensitivity, and better multi-threading, but it is slower, and it is optimized for spliced reads.</p>
+</blockquote>
+
+<p>Each algorithm creates distinct characteristics in mapping. It has been noted that different mapping tools can lead to variations in the identification of DEGs (differentially expressed genes). It is important to choose the appropriate tool based on one’s available computational resources, the volume of data to be processed, and the specific research objectives.</p>
+
+<blockquote class="block-warning">
+  <h5 id="do-not-use-tophat-anymore-even-it-was-a-legend">DO NOT USE TopHat anymore even it was a legend</h5>
+  <p>Developers tweeted (maybe I should say ‘posted’) “Please stop using Tophat” multuiple times. 
+https://x.com/lpachter/status/937055346987712512
+https://x.com/lpachter/status/1762004715678957910
+<br />
+<br />
+HISAT2 is the one you should use if you want to use Tophat-like mapping.</p>
+</blockquote>
+
+<blockquote class="block-tip">
+  <h5 id="assembly-of-transcripts---why">Assembly of transcripts - why?</h5>
+  <p>Some analysis pipeline deploys StringTie as an assembler of transcripts. The main reason is this paper published on nature protocols.
+<br />
+<br />
+<strong>Pertea, M., Kim, D., Pertea, G. et al. Transcript-level expression analysis of RNA-seq experiments with HISAT, StringTie and Ballgown. Nat Protoc 11, 1650–1667 (2016). 
+https://doi.org/10.1038/nprot.2016.095</strong>
+<br />
+<br />
+Due to alternative splicing, a single gene can produce multiple types of transcripts. Therefore, when estimating gene expression levels from mapping results,
+you can decide whether you ignore transcript isoforms and counts per gene (gene-level quantification), or consider isoforms and count for each isoform
+separately (transcript-level quantification). De novo assembler such as StringTie makes isoform quantification possible. 
+<br />
+<br />
+https://ccb.jhu.edu/software/stringtie/index.shtml?t=faq</p>
+</blockquote>
+
+<h3 id="phase-2--quantification-of-transcript-abundance">Phase 2 — quantification of transcript abundance</h3>
+<blockquote>
+  <p>Once reads have been mapped to genomic or transcriptomic locations, the next step in the analysis process is to assign them to genes or transcripts, to determine abundance measures. Diverse comparative studies have shown that the approach taken at the quantification step has perhaps the largest impact on the ultimate results, even greater than the choice of aligner. The quantification of read abundances for individual genes (that is, all transcript isoforms for that gene) relies on counting sequence reads that overlap known genes, using a transcriptome annotation.</p>
+</blockquote>
+
+<p>The next step is to count how many times genes are sequenced. Some methods are available here including HTSeq and RSEM. There are a couple of papers testing differences (The list below is a few examples).</p>
+
+<p><strong>Chandramohan R, Wu PY, Phan JH, Wang MD. Benchmarking RNA-Seq quantification tools. Annu Int Conf IEEE Eng Med Biol Soc. 2013;2013:647-50. doi: 10.1109/EMBC.2013.6609583.</strong></p>
+
+<p><strong>Corchete LA, Rojas EA, Alonso-López D, De Las Rivas J, Gutiérrez NC, Burguillo FJ. Systematic comparison and assessment of RNA-seq procedures for gene expression quantitative analysis. Sci Rep. 2020 Nov 12;10(1):19737. doi: 10.1038/s41598-020-76881-x.</strong></p>
+
+<p><strong>Wu, D., Yao, J., Ho, K. et al. Limitations of alignment-free tools in total RNA-seq quantification. BMC Genomics 19, 510 (2018). https://doi.org/10.1186/s12864-018-4869-5</strong></p>
+
+<p>Here are the general ideas of two major tools. Please note that the table below is not always true depending on users’ options.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>HTSeq (featureCounts)</th>
+      <th>RSEM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Algorithm</td>
+      <td>Simple counting method</td>
+      <td>Probability model-based estimation</td>
+    </tr>
+    <tr>
+      <td>Multi-mapping reads</td>
+      <td>Ignored or equally distributed</td>
+      <td>Probabilistically assigned</td>
+    </tr>
+    <tr>
+      <td>Isoform quantification</td>
+      <td>Not supported</td>
+      <td>Supported</td>
+    </tr>
+    <tr>
+      <td>Use case</td>
+      <td>Simple gene expression analysis</td>
+      <td>Detailed transcriptome analysis</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The figure on <a href="https://htseq.readthedocs.io/en/release_0.11.1/count.html">HTSeq website</a> illustrates how case divisions in mappingis complicated.</p>
+
+<h3 id="phase-3--filtering-and-normalization">Phase 3 — filtering and normalization</h3>
+<p>Nomalization is documented in <a href="2024-08-26-normalization.html">a different post</a>.</p>
 </section>
             </div><div class="search-results">
     <div class="has-results">
@@ -232,6 +345,38 @@ window.MathJax = {
 
 <!-- introduce per-page mermaid support -->
 
+    <script>
+    function render_mermaid() {
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: "default",
+        });
+        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+    }
+
+    function initialize_mermaid() {
+        if (document.readyState === "loading") {
+            // Loading hasn't finished yet
+            document.addEventListener("DOMContentLoaded", render_mermaid);
+        } else {
+            // `DOMContentLoaded` has already fired
+            render_mermaid();
+        }
+    }
+
+    if (window.mermaid_script && window.mermaid) {
+        initialize_mermaid();
+    } else {
+        window.mermaid_script = document.createElement("script");
+        mermaid_script.onload = initialize_mermaid;
+        document.head.appendChild(mermaid_script);
+        mermaid_script.defer = true;
+        mermaid_script.id = 'mermaid-script';
+        mermaid_script.src = 'https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js';
+    }
+</script>
+
+
 
 <!-- introduce mathjax support -->
 <script>
@@ -256,11 +401,15 @@ window.MathJax = {
 </script>
 
 
-                        <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Ryo's sandbox">
+                        <a href="/rna-seq/2024-08-23-databases.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: 20240825 Databases">
                             <i class="fa fa-angle-left"></i>
                         </a>
                     
 
+                    
+                        <a href="/rna-seq/2024-08-26-normalization.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 20240826 Normalization">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
                     
                 </div>
             </div>
@@ -273,6 +422,15 @@ window.MathJax = {
         "title": "Introduction",
         "level": "1.1",
         "depth": 1,
+        
+        "next": {
+            "title": "20240826 Normalization",
+            "level": "1.2",
+            "depth": 1,
+            "path": "_posts/2024-08-26-normalization.md",
+            "ref": "_posts/2024-08-26-normalization.md",
+            "articles": []
+        },
         
         "dir": "ltr"
     },    "config": {
@@ -362,13 +520,13 @@ window.MathJax = {
         "gitbook": "*"
     },
     "file": {
-        "path": "_others/about.md",
-        "mtime": "2024-08-27 00:00:00 -0500",
+        "path": "_posts/2024-08-26-basic-analysis.md",
+        "mtime": "2024-08-26 00:00:00 -0500",
         "type": "markdown"
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2024-08-27 06:46:13 -0500"
+        "time": "2024-08-27 09:49:10 -0500"
     },
     "basePath": "",
     "book": {
