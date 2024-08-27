@@ -65,13 +65,11 @@ Each algorithm creates distinct characteristics in mapping. It has been noted th
 
 The next step is to count how many times genes are sequenced. Some methods are available here including HTSeq and RSEM. There are a couple of papers testing differences (The list below is a few examples). 
 
-```
-Chandramohan R, Wu PY, Phan JH, Wang MD. Benchmarking RNA-Seq quantification tools. Annu Int Conf IEEE Eng Med Biol Soc. 2013;2013:647-50. doi: 10.1109/EMBC.2013.6609583.
+**Chandramohan R, Wu PY, Phan JH, Wang MD. Benchmarking RNA-Seq quantification tools. Annu Int Conf IEEE Eng Med Biol Soc. 2013;2013:647-50. doi: 10.1109/EMBC.2013.6609583.**
 
-Corchete LA, Rojas EA, Alonso-López D, De Las Rivas J, Gutiérrez NC, Burguillo FJ. Systematic comparison and assessment of RNA-seq procedures for gene expression quantitative analysis. Sci Rep. 2020 Nov 12;10(1):19737. doi: 10.1038/s41598-020-76881-x.
+**Corchete LA, Rojas EA, Alonso-López D, De Las Rivas J, Gutiérrez NC, Burguillo FJ. Systematic comparison and assessment of RNA-seq procedures for gene expression quantitative analysis. Sci Rep. 2020 Nov 12;10(1):19737. doi: 10.1038/s41598-020-76881-x.**
 
-Wu, D., Yao, J., Ho, K. et al. Limitations of alignment-free tools in total RNA-seq quantification. BMC Genomics 19, 510 (2018). https://doi.org/10.1186/s12864-018-4869-5
-```
+**Wu, D., Yao, J., Ho, K. et al. Limitations of alignment-free tools in total RNA-seq quantification. BMC Genomics 19, 510 (2018). https://doi.org/10.1186/s12864-018-4869-5**
 
 Here are the general ideas of two major tools. Please note that the table below is not always true depending on users' options. 
 
