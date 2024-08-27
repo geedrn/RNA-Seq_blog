@@ -1,16 +1,16 @@
-{"/rna-seq/others/about/": {
+{"/others/about/": {
     "title": "About others",
     "keywords": "Jekyll",
-    "url": "/rna-seq/others/about/",
+    "url": "/others/about/",
     "body": "This is an about page for “others” in the collections."
-  },"/rna-seq/pages/how_I_build_this_website/": {
-    "title": "How I build this website",
+  },"/pages/how_I_build_this_website/": {
+    "title": "How I built this website",
     "keywords": "Website",
-    "url": "/rna-seq/pages/how_I_build_this_website/",
-    "body": "This website is powered by jekyll-gitbook [https://github.com/sighingnow/jekyll-gitbook]. I simply forked the repository from the github and pasted them into my own repo. For local procedures, I use docker-ed jekyll. Here is my typicall command for a quick check after updating markdown. JEKYLL_VERSION=4.2.0 docker run --rm \\ --volume=\"$PWD:/srv/jekyll:Z\" \\ --publish 127.0.0.1:4000:4000 \\ -it jekyll/jekyll:$JEKYLL_VERSION \\ sh -c \"cd /srv/jekyll/rna-seq &amp;&amp; bundle install &amp;&amp; jekyll serve\""
-  },"/rna-seq/rna-seq/2024-08-23-easy_rna-seq.html": {
-    "title": "How you can obtain easy-to-handle data without bioinformatician",
+    "url": "/pages/how_I_build_this_website/",
+    "body": "This website is powered by jekyll-gitbook. I simply forked the repository from the github and pasted them into my own repo. I use docker-ed jekyll for local procedures,. Here is my typicall command for a quick check after updating markdown. JEKYLL_VERSION=4.2.0 docker run --rm \\ --volume=\"$PWD:/srv/jekyll:Z\" \\ --publish 127.0.0.1:4000:4000 \\ -it jekyll/jekyll:$JEKYLL_VERSION \\ sh -c \"bundle install &amp;&amp; jekyll serve\" I used remote theme function supported on Github pages. See details from the link."
+  },"/rna-seq/2024-08-23-easy_rna-seq.html": {
+    "title": "How you can obtain easy-to-handle RNA-Seq data from databases without bioinformatician?",
     "keywords": "RNA-Seq",
-    "url": "/rna-seq/rna-seq/2024-08-23-easy_rna-seq.html",
-    "body": "hogehoge"
+    "url": "/rna-seq/2024-08-23-easy_rna-seq.html",
+    "body": "Aim for this page Know what kind of databases in expression analysis are there and how you can use them 1. What kind of database is available in expression analysis? You are very fortunate. What NCBI-generated RNA-seq count files are available Counts have been generated for all historical human RNA-seq runs submitted to GEO. For each GEO Series, the following files are generated: Series RNA-seq raw counts matrix Series RNA-seq raw counts matrices are tab-delimited text files that may be suitable for input for differential expression analysis tools like DESeq2, edgeR or limma voom. The first column in the matrix contains unique Gene IDs that match the Gene ID column in the accompanying Human gene annotation table (see below). Remaining columns contain raw counts for each GEO Sample in the Series. Series RNA-seq normalized counts matrix Series RNA-seq normalized counts matrices are tab-delimited text files that may be suitable input for qualitative analysis and visualizing gene expression abundance. The first column in the matrix contains unique Gene IDs that match the Gene ID column in the accompanying Human gene annotation table (see below). Remaining columns contain counts for each GEO Sample in the Series. These counts are normalized according to sequencing depth and gene length. The FPKM counts represent Fragments Per Kilobase Million (for paired-end sequencing data) or Reads Per Kilobase Million (single end). Note that file is named FPKM in both cases. The TPM counts represent Transcripts Per Kilobase Million. For more information about normalized counts, see FPKM, RPKM and TPM, and be aware of misuses."
   }}
