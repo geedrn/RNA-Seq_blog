@@ -1,5 +1,5 @@
 ---
-title: 20240826 Analysis
+title: What kind of magic does a bioinformatician perform to convert fastq to count matrix?
 author: Ryo Niwa
 date: 2024-08-26
 category: RNA-Seq
