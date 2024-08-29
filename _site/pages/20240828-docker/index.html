@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How can I normalize RNA-Seq count matrix? · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>Docker make you life easier · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Always being lazy enough to make your life tidy
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
 <link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -25,11 +25,11 @@
 
 
 
-            <link rel="prev" href="/rna-seq/2024-08-26-basic-analysis.html" />
+            <link rel="prev" href="/pages/20240828-RNASeqChef/" />
         
 
         
-            <link rel="next" href="/rna-seq/2024-08-28-processing-count-matrix.html" />
+            <link rel="next" href="/pages/20240829-TCC-GUI/" />
         
     </head>
     <body>
@@ -121,15 +121,12 @@
                             </li>
                         
                             
-                            <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-26-normalization.html">
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-normalization.html">
                             
                                 <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
                                     How can I normalize RNA-Seq count matrix?
                                 </a>
                                 
-                                    
-                                        <ul><li><a href="#quick-answer-of-this-page-use-tpm-first" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use TPM first</a><ul><li><a href="#examples-and-details" onclick="mobilePageScrollToAnchor(this)" >Examples and details</a></li><li><a href="#why-are-fpkm-and-tpm-different" onclick="mobilePageScrollToAnchor(this)" >Why are FPKM and TPM different?</a></li></ul></li></ul>
-
                                     
                                 
                             </li>
@@ -169,12 +166,15 @@
                             </li>
                         
                             
-                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-docker/">
+                            <li class="chapter active" data-level="1.2" data-path="/pages/20240828-docker/">
                             
                                 <a href="/pages/20240828-docker/" onclick="pageScrollToTop(this)">
                                     Docker make you life easier
                                 </a>
                                 
+                                    
+                                        <ul><li><a href="#quick-answer-of-this-page-no-quick-answer-to-this-post-take-a-training" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: No quick answer to this post. Take a training!</a><ul><li><a href="#docker" onclick="mobilePageScrollToAnchor(this)" >Docker</a></li><li><a href="#docker-desktop" onclick="mobilePageScrollToAnchor(this)" >Docker Desktop</a></li><li><a href="#docker-hub" onclick="mobilePageScrollToAnchor(this)" >Docker Hub</a></li><li><a href="#error-occured" onclick="mobilePageScrollToAnchor(this)" >Error occured?</a></li></ul></li></ul>
+
                                     
                                 
                             </li>
@@ -262,7 +262,7 @@
                     <h1>
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                         
-                            <a href="." >How can I normalize RNA-Seq count matrix?</a>
+                            <a href="." >Docker make you life easier</a>
                         
                     </h1>
                 </div>
@@ -275,175 +275,75 @@
             <div class="search-noresults">
                 <section class="normal markdown-section">
                     
-                        <h1 id="/rna-seq/normalization">How can I normalize RNA-Seq count matrix?</h1>
+                        <h1 id="/pages/20240828-docker">Docker make you life easier</h1>
                     
 
-                    <blockquote class="block-tip">
+                    <p>Ref: https://www.docker.com/</p>
+
+<blockquote class="block-tip">
   <h5 id="aim-for-this-page">Aim for this page</h5>
-  <p>Understand methods of normalization in RNA-Seq</p>
+  <p>Understand how to use docker</p>
 </blockquote>
 
-<h2 id="quick-answer-of-this-page-use-tpm-first">Quick answer of this page: Use TPM first</h2>
+<h2 id="quick-answer-of-this-page-no-quick-answer-to-this-post-take-a-training">Quick answer of this page: No quick answer to this post. Take a training!</h2>
 
-<p>Before discussing this topic, this <a href="https://bioinformatics.ccr.cancer.gov/btep/questions/what-is-the-difference-between-rpkm-fpkm-and-tpm">QA</a> is must-read!</p>
+<p>Core RNA-Seq tools like DESeq2 and edgeR are implemented in R. As a result, many RNA-Seq web applications are primarily implemented in R as well. When creating web applications in R, developers often use a package called Shiny. However, one of the issues with these tools is that they can be somewhat slow in operation.</p>
 
-<p>RPKM and FPKM are virtually the same concept. RPKM is basically for single-end sequencing and FPKM is for pair-end sequencing.</p>
-<blockquote>
-  <p>With paired-end RNA-seq, two reads can correspond to a single fragment, or, if one read in the pair did not map, one read can correspond to a single fragment. The only difference between RPKM and FPKM is that FPKM takes into account that two reads can map to one fragment (and so it doesn’t count this fragment twice).</p>
-</blockquote>
+<p>To address this, instead of accessing a web server to use RNA-Seq web applications, this post introduces a method to run these web applications on a local computer via Docker.</p>
 
-<p>For RPKM (Reads Per Kilobase Million):</p>
+<h3 id="docker">Docker</h3>
 
-\[\text{RPKM} = \frac{\text{Number of reads mapped to a gene}}{\text{Total reads in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+<p>Docker is a powerful platform designed to streamline the process of developing, shipping, and running applications by encapsulating them in lightweight, portable containers. These containers are essentially standalone, executable packages that include everything needed to run the application: code, runtime, system tools, libraries, and settings. Docker utilizes containerization technology to create isolated environments that can run consistently across various computing infrastructures, from a developer’s local machine to test environments and production servers. This isolation ensures that the application works uniformly regardless of the host environment, effectively addressing the common “it works on my machine” problem.</p>
 
-<p>For FPKM (Fragments Per Kilobase Million):</p>
+<p>Long story in short, if I make a docker image on my computer and share it with you, you can copy identical environment what I have in your computer.</p>
 
-\[\text{FPKM} = \frac{\text{Number of fragments mapped to a gene}}{\text{Total fragments in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+<h3 id="docker-desktop">Docker Desktop</h3>
 
-<p>For TPM, there are two steps:</p>
+<p>Docker Desktop is a software application designed to manage Docker containers through a user-friendly graphical interface. It provides an accessible way for developers and researchers to interact with Docker, especially on personal computers. By default, when Docker Desktop is launched, it reserves 2 CPU cores and 8GB of RAM exclusively for Docker operations. This ensures that Docker containers have dedicated resources to run efficiently.</p>
 
-<p>Calculate RPK (Reads Per Kilobase):</p>
+<p>Download and try the app from here:
+https://www.docker.com/products/docker-desktop/</p>
 
-\[\text{RPK} = \frac{\text{Number of reads mapped to a gene}}{\text{Length of gene in kb}}\]
+<p>Then copy and paste this command:</p>
 
-<p>Calculate TPM (Transcripts Per Kilobase Million):</p>
+<pre><code class="language-bash=">docker run -d -p 80:80 docker/getting-started
+</code></pre>
 
-\[\text{TPM} = \frac{\text{RPK for a gene} \times 10^6}{\text{Sum of all RPK values in the sample}}\]
+<p>After executing the command, docker automatically downloads required image.</p>
 
-<blockquote>
-  <p>when calculating TPM, the only difference is that you normalize for gene length first, and then normalize for sequencing depth second. However, the effects of this difference are quite profound. When you use TPM, the sum of all TPMs in each sample are the same. This makes it easier to compare the proportion of reads that mapped to a gene in each sample. In contrast, with RPKM and FPKM, the sum of the normalized reads in each sample may be different, and this makes it harder to compare samples directly.</p>
-</blockquote>
+<p>Go to <a href="docker run -d -p 80:80 docker/getting-started">localhost:80</a>.</p>
 
-<h3 id="examples-and-details">Examples and details</h3>
+<p>Now you copied an environment from docker labs and can see a website running locally (which means you are browsing the files in your computer). You can disconnect your WiFi and see whether the website lasts if you do not trust me. Many websites use docker as a base and put the container on servers like AWS. That’s how website and web applications work.</p>
 
-<p>Let’s try some examples from this <a href="https://bi.biopapyrus.jp/rnaseq/analysis/normalizaiton/fpkm.html">blog</a>.</p>
+<h3 id="docker-hub">Docker Hub</h3>
 
-<p>Example table:</p>
+<p>To execute the same process for RNA-Seq web application, docker images need to be uploaded somewhere or you have to make them by your own. Making docker images on your own takes a bit of studies and I do not introduce the methods in this post. Instead you can focus on tools that developers made images open.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>length</th>
-      <th>1000 bp</th>
-      <th>1200 bp</th>
-      <th>800 bp</th>
-      <th>500 bp</th>
-      <th>2000 bp</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>sample A (count)</td>
-      <td>20</td>
-      <td>30</td>
-      <td>20</td>
-      <td>50</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <td>sample B (count)</td>
-      <td>100</td>
-      <td>60</td>
-      <td>140</td>
-      <td>120</td>
-      <td>180</td>
-    </tr>
-  </tbody>
-</table>
+<p>The <em>somewhere</em> developers upload their image is called docker hub (https://hub.docker.com/). Let’s try iDEP, one of the most conventional RNA-Seq analysis webtools.</p>
 
-<p>Results (computed by claude):</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Transcript Length</th>
-      <th>1000 bp</th>
-      <th>1200 bp</th>
-      <th>800 bp</th>
-      <th>500 bp</th>
-      <th>2000 bp</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Sample A (Read Count)</td>
-      <td>20</td>
-      <td>30</td>
-      <td>20</td>
-      <td>50</td>
-      <td>150</td>
-      <td>270</td>
-    </tr>
-    <tr>
-      <td>FPKM (A)</td>
-      <td>74,074</td>
-      <td>92,593</td>
-      <td>92,593</td>
-      <td>370,370</td>
-      <td>277,778</td>
-      <td>907,408</td>
-    </tr>
-    <tr>
-      <td>TPM (A)</td>
-      <td>81,633</td>
-      <td>102,041</td>
-      <td>102,041</td>
-      <td>408,163</td>
-      <td>306,122</td>
-      <td>1,000,000</td>
-    </tr>
-    <tr>
-      <td>Sample B (Read Count)</td>
-      <td>100</td>
-      <td>60</td>
-      <td>140</td>
-      <td>120</td>
-      <td>180</td>
-      <td>600</td>
-    </tr>
-    <tr>
-      <td>FPKM (B)</td>
-      <td>166,667</td>
-      <td>83,333</td>
-      <td>291,667</td>
-      <td>400,000</td>
-      <td>150,000</td>
-      <td>1,091,667</td>
-    </tr>
-    <tr>
-      <td>TPM (B)</td>
-      <td>152,672</td>
-      <td>76,336</td>
-      <td>267,176</td>
-      <td>366,412</td>
-      <td>137,404</td>
-      <td>1,000,000</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="why-are-fpkm-and-tpm-different">Why are FPKM and TPM different?</h3>
-
-<p>Wagner, G.P., Kin, K. &amp; Lynch, V.J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. Theory Biosci. 131, 281–285 (2012). <a href="https://doi.org/10.1007/s12064-012-0162-3">https://doi.org/10.1007/s12064-012-0162-3</a></p>
+<pre><code class="language-bash=">docker run --pull always -d --name idep -p 3838:3838 gexijin/idep:latest 
+</code></pre>
 
 <blockquote>
-  <p>The reason for the inconsistency of RPKM across samples arises from the normalization by the total number of reads. While rmc as well as qPCR results are ratios of transcript concentrations, the RPKM normalizes a proxy for transcript number by</p>
+  <p>Note that the Docker engine is now running in the backgroup, acting as a webserver. It works even if you restart your computer. To stop it, run these from Windows PowerShell:
+This also works for macOS terminal.</p>
 </blockquote>
 
-\[\frac{r_g \cdot 10^3}{l_g \cdot \frac{R}{10^6}}\]
+<pre><code class="language-bash=">docker stop idep 
+docker rm idep
+</code></pre>
 
-<blockquote>
-  <p>the number of sequencing reads in millions,</p>
-</blockquote>
+<p>As a repeat, docker steals your computer resource automatically. You have to shut the containers or app down. You can press Quit Docker Desktop without typing commands to stop docker.</p>
 
-\[\frac{R}{10^6}\]
+<h3 id="error-occured">Error occured?</h3>
 
-<blockquote>
-  <p>The latter, however, is not a measure of total transcript number. The relationship between \(R\) and the total number of transcripts sampled depends on the size distribution of RNA transcripts, which can differ between samples. In a sample with, on average, longer transcripts the same number of reads represents fewer transcripts.</p>
-</blockquote>
+<p>Below is a typical error beginners encounter. This is because Docker system does not wake up on your computer. Click your app icon and wake it up!</p>
 
-<p>While TPM is essentially the ratio of each gene’s RPK to the total RPK, RPKM (FPKM) can be considered as the ratio of each gene’s RPK to the total number of reads. When longer genes have more reads, the overall RPK effectively becomes smaller, resulting in a discrepancy in the total values. Also please note that when you perform DEG (differentally expressed gene) analysis, you need to put different assumptions. While TPM is useful to compare gene count internally or externally, previous studies suggested DEG analysis require other statistical models.</p>
+<pre><code class="language-bash=">docker run -d -p 80:80 docker/getting-started
+
+docker: Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?.
+See 'docker run --help'.
+</code></pre>
 </section>
             </div><div class="search-results">
     <div class="has-results">
@@ -476,38 +376,6 @@ window.MathJax = {
 
 <!-- introduce per-page mermaid support -->
 
-    <script>
-    function render_mermaid() {
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: "default",
-        });
-        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-    }
-
-    function initialize_mermaid() {
-        if (document.readyState === "loading") {
-            // Loading hasn't finished yet
-            document.addEventListener("DOMContentLoaded", render_mermaid);
-        } else {
-            // `DOMContentLoaded` has already fired
-            render_mermaid();
-        }
-    }
-
-    if (window.mermaid_script && window.mermaid) {
-        initialize_mermaid();
-    } else {
-        window.mermaid_script = document.createElement("script");
-        mermaid_script.onload = initialize_mermaid;
-        document.head.appendChild(mermaid_script);
-        mermaid_script.defer = true;
-        mermaid_script.id = 'mermaid-script';
-        mermaid_script.src = 'https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js';
-    }
-</script>
-
-
 
 <!-- introduce mathjax support -->
 <script>
@@ -532,13 +400,13 @@ window.MathJax = {
 </script>
 
 
-                        <a href="/rna-seq/2024-08-26-basic-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: What kind of magic does a bioinformatician perform to convert fastq to count matrix?">
+                        <a href="/pages/20240828-RNASeqChef/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: RNASeqChef">
                             <i class="fa fa-angle-left"></i>
                         </a>
                     
 
                     
-                        <a href="/rna-seq/2024-08-28-processing-count-matrix.html" class="navigation navigation-next navigation-unique" aria-label="Next page: How can I know DEGs?">
+                        <a href="/pages/20240829-TCC-GUI/" class="navigation navigation-next navigation-unique" aria-label="Next page: RNASeqChef">
                             <i class="fa fa-angle-right"></i>
                         </a>
                     
@@ -555,11 +423,11 @@ window.MathJax = {
         "depth": 1,
         
         "next": {
-            "title": "How can I know DEGs?",
+            "title": "RNASeqChef",
             "level": "1.2",
             "depth": 1,
-            "path": "_posts/2024-08-28-processing-count-matrix.md",
-            "ref": "_posts/2024-08-28-processing-count-matrix.md",
+            "path": "_pages/20240829-TCC-GUI.md",
+            "ref": "_pages/20240829-TCC-GUI.md",
             "articles": []
         },
         
@@ -651,8 +519,8 @@ window.MathJax = {
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2024-08-26-normalization.md",
-        "mtime": "2024-08-26 00:00:00 -0500",
+        "path": "_pages/20240828-docker.md",
+        "mtime": "2024-08-22 00:00:00 -0500",
         "type": "markdown"
     },
     "gitbook": {

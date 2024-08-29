@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>20240823 count data from NCBI · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How do you obtain the count matrix of public RNA-Seq data? · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Always being lazy enough to make your life tidy
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
 <link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -91,11 +91,11 @@
                             <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-23-count.html">
                             
                                 <a href="/rna-seq/2024-08-23-count.html" onclick="pageScrollToTop(this)">
-                                    20240823 count data from NCBI
+                                    How do you obtain the count matrix of public RNA-Seq data?
                                 </a>
                                 
                                     
-                                        <ul><li><a href="#quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use NCBI generates RNA-seq count data</a><ul><li><a href="#rna-seq-raw-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Raw Count Matrix:</a></li><li><a href="#rna-seq-normalized-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Normalized Count Matrix:</a></li><li><a href="#how-does-the-analysis-work" onclick="mobilePageScrollToAnchor(this)" >How does the analysis work?</a></li></ul></li></ul>
+                                        <ul><li><a href="#quick-answer-of-this-page-use-ncbi-generated-rna-seq-count-data" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use NCBI generated RNA-seq count data</a><ul><li><a href="#rna-seq-raw-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Raw Count Matrix:</a></li><li><a href="#rna-seq-normalized-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Normalized Count Matrix:</a></li><li><a href="#how-does-the-analysis-work" onclick="mobilePageScrollToAnchor(this)" >How does the analysis work?</a></li></ul></li></ul>
 
                                     
                                 
@@ -105,7 +105,7 @@
                             <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-databases.html">
                             
                                 <a href="/rna-seq/2024-08-23-databases.html" onclick="pageScrollToTop(this)">
-                                    20240825 Databases
+                                    What kind databases are available in RNA-Seq studies?
                                 </a>
                                 
                                     
@@ -116,7 +116,7 @@
                             <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-basic-analysis.html">
                             
                                 <a href="/rna-seq/2024-08-26-basic-analysis.html" onclick="pageScrollToTop(this)">
-                                    20240826 Analysis
+                                    What kind of magic does a bioinformatician perform to convert fastq to count matrix?
                                 </a>
                                 
                                     
@@ -127,7 +127,18 @@
                             <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-normalization.html">
                             
                                 <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
-                                    20240826 Normalization
+                                    How can I normalize RNA-Seq count matrix?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-28-processing-count-matrix.html">
+                            
+                                <a href="/rna-seq/2024-08-28-processing-count-matrix.html" onclick="pageScrollToTop(this)">
+                                    How can I know DEGs?
                                 </a>
                                 
                                     
@@ -147,10 +158,65 @@
 
                         
                             
-                            <li class="chapter" data-level="1.1" data-path="/pages/how_I_build_this_website/">
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-RNASeqChef/">
                             
-                                <a href="/pages/how_I_build_this_website/" onclick="pageScrollToTop(this)">
-                                    How I built this website
+                                <a href="/pages/20240828-RNASeqChef/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-docker/">
+                            
+                                <a href="/pages/20240828-docker/" onclick="pageScrollToTop(this)">
+                                    Docker make you life easier
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-TCC-GUI/">
+                            
+                                <a href="/pages/20240829-TCC-GUI/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-iDEP/">
+                            
+                                <a href="/pages/20240829-iDEP/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-metaanalysis/">
+                            
+                                <a href="/pages/20240829-metaanalysis/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/2024-08-29-hoge/">
+                            
+                                <a href="/pages/2024-08-29-hoge/" onclick="pageScrollToTop(this)">
+                                    hoge
                                 </a>
                                 
                                     
@@ -169,7 +235,20 @@
                         
 
                         
+                            
+                            <li class="chapter" data-level="1.1" data-path="/others/how_I_build_this_website/">
+                            
+                                <a href="/others/how_I_build_this_website/" onclick="pageScrollToTop(this)">
+                                    How I built this website
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
 
+                        
+                            <li class="divider"></li>
                         
                     
                 
@@ -183,7 +262,7 @@
                     <h1>
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                         
-                            <a href="." >20240823 count data from NCBI</a>
+                            <a href="." >How do you obtain the count matrix of public RNA-Seq data?</a>
                         
                     </h1>
                 </div>
@@ -196,7 +275,7 @@
             <div class="search-noresults">
                 <section class="normal markdown-section">
                     
-                        <h1 id="/rna-seq/count">20240823 count data from NCBI</h1>
+                        <h1 id="/rna-seq/count">How do you obtain the count matrix of public RNA-Seq data?</h1>
                     
 
                     <blockquote class="block-tip">
@@ -204,7 +283,7 @@
   <p>Know NCBI’s service: auto-generated RNA-seq count data</p>
 </blockquote>
 
-<h2 id="quick-answer-of-this-page-use-ncbi-generates-rna-seq-count-data">Quick answer of this page: Use NCBI generates RNA-seq count data</h2>
+<h2 id="quick-answer-of-this-page-use-ncbi-generated-rna-seq-count-data">Quick answer of this page: Use NCBI generated RNA-seq count data</h2>
 
 <blockquote>
   <p>You are very fortunate.</p>
@@ -240,10 +319,6 @@ For each GEO Series, two main types of files are generated, raw counts and norma
       <td>Purpose</td>
       <td>Suitable for input into differential expression analysis tools like DESeq2, edgeR, or limma voom</td>
     </tr>
-    <tr>
-      <td>Structure</td>
-      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Raw counts for each GEO Sample</td>
-    </tr>
   </tbody>
 </table>
 
@@ -266,10 +341,6 @@ For each GEO Series, two main types of files are generated, raw counts and norma
       <td>Suitable for qualitative analysis and visualization of gene expression abundance</td>
     </tr>
     <tr>
-      <td>Structure</td>
-      <td>- First column: Gene IDs (matching the Human gene annotation table)<br />- Remaining columns: Normalized counts for each GEO Sample</td>
-    </tr>
-    <tr>
       <td>Normalization</td>
       <td>FPKM (RPKM) and TPM</td>
     </tr>
@@ -278,7 +349,8 @@ For each GEO Series, two main types of files are generated, raw counts and norma
 
 <h3 id="how-does-the-analysis-work">How does the analysis work?</h3>
 
-<p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>.</p>
+<p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>. 
+Do you want to know what each software manage? Go to <a href="2024-08-26-basic-analysis.html">a next post</a></p>
 
 <blockquote>
   <p>Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.</p>
@@ -286,7 +358,15 @@ For each GEO Series, two main types of files are generated, raw counts and norma
 
 <blockquote class="block-tip">
   <h5 id="this-way-of-the-output-is-atarimae-natural-in-rna-seq-field">This way of the output is Atarimae (natural) in RNA-Seq field</h5>
-  <p>Please note that our in-house RNA-Seq pipeline provides the same format of results. You need to handle these data by yourself for data exploration anyway.</p>
+  <p>Please note that our in-house RNA-Seq pipeline provides the same format of results as a paper below saying</p>
+
+  <p><em>The results of the quantification step are usually combined into an expression matrix, with a row for each expression feature (gene or transcript) 
+and a column for each sample, with the values being either actual read counts or estimated abundances.</em></p>
+
+  <p><strong>Stark, R., Grzelak, M. &amp; Hadfield, J. RNA sequencing: the teenage years. Nat Rev Genet 20, 631–656 (2019). 
+https://doi.org/10.1038/s41576-019-0150-2</strong></p>
+
+  <p>You need to handle these data by yourself for data exploration anyway.</p>
 </blockquote>
 </section>
             </div><div class="search-results">
@@ -350,7 +430,7 @@ window.MathJax = {
                     
 
                     
-                        <a href="/rna-seq/2024-08-23-databases.html" class="navigation navigation-next navigation-unique" aria-label="Next page: 20240825 Databases">
+                        <a href="/rna-seq/2024-08-23-databases.html" class="navigation navigation-next navigation-unique" aria-label="Next page: What kind databases are available in RNA-Seq studies?">
                             <i class="fa fa-angle-right"></i>
                         </a>
                     
@@ -367,7 +447,7 @@ window.MathJax = {
         "depth": 1,
         
         "next": {
-            "title": "20240825 Databases",
+            "title": "What kind databases are available in RNA-Seq studies?",
             "level": "1.2",
             "depth": 1,
             "path": "_posts/2024-08-25-databases.md",
@@ -469,7 +549,7 @@ window.MathJax = {
     },
     "gitbook": {
         "version": "3.2.3",
-        "time": "2024-08-27 09:50:47 -0500"
+        "time": "2024-08-28 19:01:33 -0500"
     },
     "basePath": "",
     "book": {

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" >
     <head><meta charset="UTF-8">
-<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How can I normalize RNA-Seq count matrix? · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>RNASeqChef · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="description" content="Always being lazy enough to make your life tidy
 "><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
 <link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
@@ -25,11 +25,11 @@
 
 
 
-            <link rel="prev" href="/rna-seq/2024-08-26-basic-analysis.html" />
+            <link rel="prev" href="/pages/20240829-iDEP/" />
         
 
         
-            <link rel="next" href="/rna-seq/2024-08-28-processing-count-matrix.html" />
+            <link rel="next" href="/pages/2024-08-29-hoge/" />
         
     </head>
     <body>
@@ -121,15 +121,12 @@
                             </li>
                         
                             
-                            <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-26-normalization.html">
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-normalization.html">
                             
                                 <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
                                     How can I normalize RNA-Seq count matrix?
                                 </a>
                                 
-                                    
-                                        <ul><li><a href="#quick-answer-of-this-page-use-tpm-first" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use TPM first</a><ul><li><a href="#examples-and-details" onclick="mobilePageScrollToAnchor(this)" >Examples and details</a></li><li><a href="#why-are-fpkm-and-tpm-different" onclick="mobilePageScrollToAnchor(this)" >Why are FPKM and TPM different?</a></li></ul></li></ul>
-
                                     
                                 
                             </li>
@@ -202,12 +199,15 @@
                             </li>
                         
                             
-                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-metaanalysis/">
+                            <li class="chapter active" data-level="1.2" data-path="/pages/20240829-metaanalysis/">
                             
                                 <a href="/pages/20240829-metaanalysis/" onclick="pageScrollToTop(this)">
                                     RNASeqChef
                                 </a>
                                 
+                                    
+                                        <ul><li><a href="#ncbi-geoを使ってメタ解析を行う" onclick="mobilePageScrollToAnchor(this)" >NCBI GEOを使ってメタ解析を行う</a><ul><li><a href="#メタ解析のワークフロー" onclick="mobilePageScrollToAnchor(this)" >メタ解析のワークフロー</a></li></ul></li><li><a href="#bulk-rna-seqメタ解析の重要ステップ" onclick="mobilePageScrollToAnchor(this)" >Bulk RNA-Seqメタ解析の重要ステップ</a></li><li><a href="#1-データ収集" onclick="mobilePageScrollToAnchor(this)" >1. データ収集</a></li><li><a href="#2-データ前処理" onclick="mobilePageScrollToAnchor(this)" >2. データ前処理</a></li><li><a href="#3-データセットの結合" onclick="mobilePageScrollToAnchor(this)" >3. データセットの結合</a></li></ul></li></ul>
+
                                     
                                 
                             </li>
@@ -262,7 +262,7 @@
                     <h1>
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                         
-                            <a href="." >How can I normalize RNA-Seq count matrix?</a>
+                            <a href="." >RNASeqChef</a>
                         
                     </h1>
                 </div>
@@ -275,175 +275,54 @@
             <div class="search-noresults">
                 <section class="normal markdown-section">
                     
-                        <h1 id="/rna-seq/normalization">How can I normalize RNA-Seq count matrix?</h1>
+                        <h1 id="/pages/20240829-metaanalysis">RNASeqChef</h1>
                     
 
-                    <blockquote class="block-tip">
-  <h5 id="aim-for-this-page">Aim for this page</h5>
-  <p>Understand methods of normalization in RNA-Seq</p>
-</blockquote>
+                    <h1 id="ncbi-geoを使ってメタ解析を行う">NCBI GEOを使ってメタ解析を行う</h1>
+<h4 id="documented-by-ryo-niwa">Documented by Ryo Niwa</h4>
 
-<h2 id="quick-answer-of-this-page-use-tpm-first">Quick answer of this page: Use TPM first</h2>
+<h3 id="メタ解析のワークフロー">メタ解析のワークフロー</h3>
 
-<p>Before discussing this topic, this <a href="https://bioinformatics.ccr.cancer.gov/btep/questions/what-is-the-difference-between-rpkm-fpkm-and-tpm">QA</a> is must-read!</p>
+<h2 id="bulk-rna-seqメタ解析の重要ステップ">Bulk RNA-Seqメタ解析の重要ステップ</h2>
 
-<p>RPKM and FPKM are virtually the same concept. RPKM is basically for single-end sequencing and FPKM is for pair-end sequencing.</p>
-<blockquote>
-  <p>With paired-end RNA-seq, two reads can correspond to a single fragment, or, if one read in the pair did not map, one read can correspond to a single fragment. The only difference between RPKM and FPKM is that FPKM takes into account that two reads can map to one fragment (and so it doesn’t count this fragment twice).</p>
-</blockquote>
+<h2 id="1-データ収集">1. データ収集</h2>
+<ul>
+  <li>
+    <p><strong>公的データベースの利用</strong>: GEO (Gene Expression Omnibus) から取得する</p>
+  </li>
+  <li>
+    <p><strong>データセットの選択基準の設定</strong>: 研究目的に合わせて、条件（例：組織タイプ、疾病状態、技術的変数など）を決定する。基本的に比較する際は、合わせられるものは統一したほうが良い。RNA-Seqはただでさえばらつくので、生物種や細胞株など統一可能な範囲では努力する。</p>
+  </li>
+  <li>
+    <p><strong>AIツールに頼る</strong>:ResearchRabbit, ConnectedPapersあたりは非常に優れている。</p>
+  </li>
+</ul>
 
-<p>For RPKM (Reads Per Kilobase Million):</p>
+<h2 id="2-データ前処理">2. データ前処理</h2>
+<ul>
+  <li><strong>TSVファイルの確認</strong>: GEOからダウンロードしたTSVファイルを確認し、必要なメタデータを取得する。2023年ごろよりGEOに登録されたヒト検体RNA-Seqは全てNCBIが規格化された手法で解析し、登録後1週間程度でカウントデータがアップされている。</li>
+</ul>
 
-\[\text{RPKM} = \frac{\text{Number of reads mapped to a gene}}{\text{Total reads in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+<p>参考1: https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html
+参考2: https://academic.oup.com/nar/article/52/D1/D138/7337616</p>
 
-<p>For FPKM (Fragments Per Kilobase Million):</p>
+<p>:::info
+SRAの実行データのうち、生物種がヒト（Homo sapiens）で、タイプがトランスクリプトミクスのものは、HISAT2を用いてゲノムアセンブリGCA_000001405.15にアライメントされる。50%以上のアライメント率を達成した実行データは、SubreadのfeatureCountsでさらに処理され、各実行データに対する生データカウントファイルが生成される。</p>
 
-\[\text{FPKM} = \frac{\text{Number of fragments mapped to a gene}}{\text{Total fragments in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+<p>生データカウントマトリックス内の値は、一般的な差次的発現解析ソフトウェアに適した入力となるように四捨五入される。GEOは、生データカウントを入力として、FPKM(RPKM)およびTPMで規格化された値を計算する。
+:::</p>
 
-<p>For TPM, there are two steps:</p>
+<h2 id="3-データセットの結合">3. データセットの結合</h2>
+<ul>
+  <li>
+    <p><strong>Rなどで行う</strong>: Rなどを用いて、データセットを結合する。Excelで力技でやっても構わない。RNA-Seqに存在するBatch effectを修正して解析を行う場合もあるが、大体の結論を導き出すだけであれば基本的には不要。</p>
+  </li>
+  <li>
+    <p><strong>最低限のQC</strong>: DegustやiDEPなどを用いて全体を俯瞰し、解析している検体が確からしいかどうかを見ておくと良い。これらを使ってDEGsを見ても良いが、今回は必要なさそうなので割愛。GEO2Rでも中身は確認できるので、それでもOK。全体のカウント値が大幅に外れていなければ問題ない。
+https://togotv.dbcls.jp/en/20230328.html</p>
+  </li>
+</ul>
 
-<p>Calculate RPK (Reads Per Kilobase):</p>
-
-\[\text{RPK} = \frac{\text{Number of reads mapped to a gene}}{\text{Length of gene in kb}}\]
-
-<p>Calculate TPM (Transcripts Per Kilobase Million):</p>
-
-\[\text{TPM} = \frac{\text{RPK for a gene} \times 10^6}{\text{Sum of all RPK values in the sample}}\]
-
-<blockquote>
-  <p>when calculating TPM, the only difference is that you normalize for gene length first, and then normalize for sequencing depth second. However, the effects of this difference are quite profound. When you use TPM, the sum of all TPMs in each sample are the same. This makes it easier to compare the proportion of reads that mapped to a gene in each sample. In contrast, with RPKM and FPKM, the sum of the normalized reads in each sample may be different, and this makes it harder to compare samples directly.</p>
-</blockquote>
-
-<h3 id="examples-and-details">Examples and details</h3>
-
-<p>Let’s try some examples from this <a href="https://bi.biopapyrus.jp/rnaseq/analysis/normalizaiton/fpkm.html">blog</a>.</p>
-
-<p>Example table:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>length</th>
-      <th>1000 bp</th>
-      <th>1200 bp</th>
-      <th>800 bp</th>
-      <th>500 bp</th>
-      <th>2000 bp</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>sample A (count)</td>
-      <td>20</td>
-      <td>30</td>
-      <td>20</td>
-      <td>50</td>
-      <td>150</td>
-    </tr>
-    <tr>
-      <td>sample B (count)</td>
-      <td>100</td>
-      <td>60</td>
-      <td>140</td>
-      <td>120</td>
-      <td>180</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Results (computed by claude):</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Transcript Length</th>
-      <th>1000 bp</th>
-      <th>1200 bp</th>
-      <th>800 bp</th>
-      <th>500 bp</th>
-      <th>2000 bp</th>
-      <th>Total</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Sample A (Read Count)</td>
-      <td>20</td>
-      <td>30</td>
-      <td>20</td>
-      <td>50</td>
-      <td>150</td>
-      <td>270</td>
-    </tr>
-    <tr>
-      <td>FPKM (A)</td>
-      <td>74,074</td>
-      <td>92,593</td>
-      <td>92,593</td>
-      <td>370,370</td>
-      <td>277,778</td>
-      <td>907,408</td>
-    </tr>
-    <tr>
-      <td>TPM (A)</td>
-      <td>81,633</td>
-      <td>102,041</td>
-      <td>102,041</td>
-      <td>408,163</td>
-      <td>306,122</td>
-      <td>1,000,000</td>
-    </tr>
-    <tr>
-      <td>Sample B (Read Count)</td>
-      <td>100</td>
-      <td>60</td>
-      <td>140</td>
-      <td>120</td>
-      <td>180</td>
-      <td>600</td>
-    </tr>
-    <tr>
-      <td>FPKM (B)</td>
-      <td>166,667</td>
-      <td>83,333</td>
-      <td>291,667</td>
-      <td>400,000</td>
-      <td>150,000</td>
-      <td>1,091,667</td>
-    </tr>
-    <tr>
-      <td>TPM (B)</td>
-      <td>152,672</td>
-      <td>76,336</td>
-      <td>267,176</td>
-      <td>366,412</td>
-      <td>137,404</td>
-      <td>1,000,000</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="why-are-fpkm-and-tpm-different">Why are FPKM and TPM different?</h3>
-
-<p>Wagner, G.P., Kin, K. &amp; Lynch, V.J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. Theory Biosci. 131, 281–285 (2012). <a href="https://doi.org/10.1007/s12064-012-0162-3">https://doi.org/10.1007/s12064-012-0162-3</a></p>
-
-<blockquote>
-  <p>The reason for the inconsistency of RPKM across samples arises from the normalization by the total number of reads. While rmc as well as qPCR results are ratios of transcript concentrations, the RPKM normalizes a proxy for transcript number by</p>
-</blockquote>
-
-\[\frac{r_g \cdot 10^3}{l_g \cdot \frac{R}{10^6}}\]
-
-<blockquote>
-  <p>the number of sequencing reads in millions,</p>
-</blockquote>
-
-\[\frac{R}{10^6}\]
-
-<blockquote>
-  <p>The latter, however, is not a measure of total transcript number. The relationship between \(R\) and the total number of transcripts sampled depends on the size distribution of RNA transcripts, which can differ between samples. In a sample with, on average, longer transcripts the same number of reads represents fewer transcripts.</p>
-</blockquote>
-
-<p>While TPM is essentially the ratio of each gene’s RPK to the total RPK, RPKM (FPKM) can be considered as the ratio of each gene’s RPK to the total number of reads. When longer genes have more reads, the overall RPK effectively becomes smaller, resulting in a discrepancy in the total values. Also please note that when you perform DEG (differentally expressed gene) analysis, you need to put different assumptions. While TPM is useful to compare gene count internally or externally, previous studies suggested DEG analysis require other statistical models.</p>
 </section>
             </div><div class="search-results">
     <div class="has-results">
@@ -476,38 +355,6 @@ window.MathJax = {
 
 <!-- introduce per-page mermaid support -->
 
-    <script>
-    function render_mermaid() {
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: "default",
-        });
-        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
-    }
-
-    function initialize_mermaid() {
-        if (document.readyState === "loading") {
-            // Loading hasn't finished yet
-            document.addEventListener("DOMContentLoaded", render_mermaid);
-        } else {
-            // `DOMContentLoaded` has already fired
-            render_mermaid();
-        }
-    }
-
-    if (window.mermaid_script && window.mermaid) {
-        initialize_mermaid();
-    } else {
-        window.mermaid_script = document.createElement("script");
-        mermaid_script.onload = initialize_mermaid;
-        document.head.appendChild(mermaid_script);
-        mermaid_script.defer = true;
-        mermaid_script.id = 'mermaid-script';
-        mermaid_script.src = 'https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js';
-    }
-</script>
-
-
 
 <!-- introduce mathjax support -->
 <script>
@@ -532,13 +379,13 @@ window.MathJax = {
 </script>
 
 
-                        <a href="/rna-seq/2024-08-26-basic-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: What kind of magic does a bioinformatician perform to convert fastq to count matrix?">
+                        <a href="/pages/20240829-iDEP/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: RNASeqChef">
                             <i class="fa fa-angle-left"></i>
                         </a>
                     
 
                     
-                        <a href="/rna-seq/2024-08-28-processing-count-matrix.html" class="navigation navigation-next navigation-unique" aria-label="Next page: How can I know DEGs?">
+                        <a href="/pages/2024-08-29-hoge/" class="navigation navigation-next navigation-unique" aria-label="Next page: hoge">
                             <i class="fa fa-angle-right"></i>
                         </a>
                     
@@ -555,11 +402,11 @@ window.MathJax = {
         "depth": 1,
         
         "next": {
-            "title": "How can I know DEGs?",
+            "title": "hoge",
             "level": "1.2",
             "depth": 1,
-            "path": "_posts/2024-08-28-processing-count-matrix.md",
-            "ref": "_posts/2024-08-28-processing-count-matrix.md",
+            "path": "_pages/2024-08-29-hoge.md",
+            "ref": "_pages/2024-08-29-hoge.md",
             "articles": []
         },
         
@@ -651,8 +498,8 @@ window.MathJax = {
         "gitbook": "*"
     },
     "file": {
-        "path": "_posts/2024-08-26-normalization.md",
-        "mtime": "2024-08-26 00:00:00 -0500",
+        "path": "_pages/20240829-metaanalysis.md",
+        "mtime": "2024-08-22 00:00:00 -0500",
         "type": "markdown"
     },
     "gitbook": {
