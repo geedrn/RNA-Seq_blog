@@ -32,5 +32,5 @@ JPN demo: [YouTube](https://www.youtube.com/watch?v=W4XJc1WAcMU)
 ### Cons
 
 - Difficulty in multi DEGs
-- Less citations
-- Only Japanese movie manual available
+- Less citations (Because the tool is new)
+- Only Japanese movie manual available (Their wiki has sufficient info for English speakers)
