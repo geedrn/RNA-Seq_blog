@@ -1,5 +1,5 @@
 ---
-title: [4] RNASeqChef
+title: 4-RNASeqChef
 author: Ryo Niwa
 date: 2024-09-06
 category: Packages

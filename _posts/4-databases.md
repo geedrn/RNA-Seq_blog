@@ -1,5 +1,5 @@
 ---
-title: [4] What kind databases are available in RNA-Seq studies?
+title: Chapter4. What kind databases are available in RNA-Seq studies?
 author: Ryo Niwa
 date: 2024-09-06
 category: RNA-Seq

@@ -1,5 +1,5 @@
 ---
-title: [1] Docker make you life easier
+title: 1-Docker make you life easier
 author: Ryo Niwa
 date: 2024-09-06
 category: Packages

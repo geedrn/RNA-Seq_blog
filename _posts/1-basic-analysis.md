@@ -1,5 +1,5 @@
 ---
-title: [1] What kind of magic does a bioinformatician perform to convert fastq to count matrix?
+title: Chapter1. What kind of magic does a bioinformatician perform to convert fastq to count matrix?
 author: Ryo Niwa
 date: 2024-09-06
 category: RNA-Seq

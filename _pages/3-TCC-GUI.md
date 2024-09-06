@@ -1,5 +1,5 @@
 ---
-title: [3] TCC-GUI
+title: 3-TCC-GUI
 author: Ryo Niwa
 date: 2024-09-06
 category: Packages

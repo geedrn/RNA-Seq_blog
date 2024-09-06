@@ -1,5 +1,5 @@
 ---
-title: [5] How do you obtain the count matrix of public RNA-Seq data?
+title: Chapter5. ow do you obtain the count matrix of public RNA-Seq data?
 author: Ryo Niwa
 date: 2024-09-06
 category: RNA-Seq
