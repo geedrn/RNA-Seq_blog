@@ -1,7 +1,7 @@
 ---
-title: How can I know DEGs?
+title: [2] How can I know DEGs?
 author: Ryo Niwa
-date: 2024-08-28
+date: 2024-09-06
 category: RNA-Seq
 layout: post
 mermaid: true

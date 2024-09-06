@@ -1,7 +1,7 @@
 ---
-title: Public data analysis tips
+title: [2] Public data analysis tips
 author: Ryo Niwa
-date: 2024-09-05
+date: 2024-09-06
 category: Tips
 layout: post
 ---

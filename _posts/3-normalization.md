@@ -1,7 +1,7 @@
 ---
-title: How can I normalize RNA-Seq count matrix?
+title: [3] How can I normalize RNA-Seq count matrix?
 author: Ryo Niwa
-date: 2024-08-26
+date: 2024-09-06
 category: RNA-Seq
 layout: post
 mermaid: true
