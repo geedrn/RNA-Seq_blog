@@ -24,7 +24,7 @@ People typically call this first step, alignment or mapping. Long story in short
 
 ![SRA_structure](/assets/mapping.png)
 
-Mostly we use reference genomes such as GRCh38 for the reference in mapping. In NCBI, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 ([link](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.26/)) using HISAT2. 
+Mostly we use reference genomes such as GRCh38 for the reference to map your fastq reads. In NCBI, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 ([link](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.26/)) using HISAT2. 
 
 **A. Bianchi, A. Di Marco and C. Pellegrini, "Comparing HISAT and STAR-based pipelines for RNA-Seq Data Analysis: a real experience," 2023 IEEE 36th International Symposium on Computer-Based Medical Systems (CBMS), L'Aquila, Italy, 2023, pp. 218-224, doi: 10.1109/CBMS58004.2023.00220.**
 
@@ -61,7 +61,7 @@ Each algorithm creates distinct characteristics in mapping. It has been noted th
 > https://ccb.jhu.edu/software/stringtie/index.shtml?t=faq
 {: .block-tip }
 
-### Phase 2 — quantification of transcript abundance
+### Phase 2 — Quantification of transcript abundance
 > Once reads have been mapped to genomic or transcriptomic locations, the next step in the analysis process is to assign them to genes or transcripts, to determine abundance measures. Diverse comparative studies have shown that the approach taken at the quantification step has perhaps the largest impact on the ultimate results, even greater than the choice of aligner. The quantification of read abundances for individual genes (that is, all transcript isoforms for that gene) relies on counting sequence reads that overlap known genes, using a transcriptome annotation.
 
 The next step is to count how many times genes are sequenced. Some methods are available here including HTSeq and RSEM. There are a couple of papers testing differences (The list below is a few examples). 
@@ -83,5 +83,5 @@ Here are the general ideas of two major tools. Please note that the table below 
 
 The figure on [HTSeq website](https://htseq.readthedocs.io/en/release_0.11.1/count.html) illustrates how case divisions in mappingis complicated. 
 
-### Phase 3 — filtering and normalization
+### Phase 3 — Normalization
 Nomalization is documented in [a different post](2024-08-26-normalization.html).
