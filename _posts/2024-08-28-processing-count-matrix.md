@@ -1,5 +1,5 @@
 ---
-title: How can I know DEGs?
+title: 3. How can I know DEGs?
 author: Ryo Niwa
 date: 2024-08-28
 category: RNA-Seq
