@@ -1,0 +1,559 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How can I know DEGs? · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Always being lazy enough to make your life tidy
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-fontsettings/website.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-search-pro/search.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-splitter/splitter.css">
+
+<link rel="stylesheet" href="/assets/gitbook/rouge/colorful.css">
+
+<link rel="stylesheet" href="/assets/gitbook/custom.css">
+<link rel="stylesheet" href="/assets/gitbook/custom-local.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="//assets/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+
+
+            <link rel="prev" href="/rna-seq/2024-08-26-normalization.html" />
+        
+
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <script type="text/javascript">
+        // Fixes the page links scroll problem on both desktop and mobile browsers
+        function pageScrollToTop(element) {
+            // both mobile and non-mobile
+            $('div.body-inner').animate({scrollTop: 0});
+            $(element).parent().find('li>ul>li').removeClass('active');
+            return true;  // propagate
+        }
+        // Fixes the anchor links scroll problem on mobile browsers
+        function mobilePageScrollToAnchor(element) {
+            $(element).closest('li.chapter').find('ul>li').removeClass('active');
+            $(element).parent().addClass('active');
+            if ($(document).width() <= 1240) {
+                let target = $($(element).attr('href'));
+                if (target.length) {
+                    $('div.body-inner').animate({
+                        scrollTop: target.get(0).offsetTop,
+                    });
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <nav role="navigation">
+        <div id="book-search-input" role="search">
+            <input type="text" placeholder="Type to search" />
+        </div>
+        <div id="book-search-input-link" role="search">
+            <a href="/assets/search.html">Click to Search</a>
+        </div>
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="/" onclick="pageScrollToTop(this)">
+                    Ryo&#39;s sandbox
+                </a>
+                
+                    
+                
+            </li>
+
+            <li class="divider"></li>
+
+            
+                
+                    
+                    <!-- <p>posts</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-count.html">
+                            
+                                <a href="/rna-seq/2024-08-23-count.html" onclick="pageScrollToTop(this)">
+                                    How do you obtain the count matrix of public RNA-Seq data?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-databases.html">
+                            
+                                <a href="/rna-seq/2024-08-23-databases.html" onclick="pageScrollToTop(this)">
+                                    What kind databases are available in RNA-Seq studies?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-basic-analysis.html">
+                            
+                                <a href="/rna-seq/2024-08-26-basic-analysis.html" onclick="pageScrollToTop(this)">
+                                    What kind of magic does a bioinformatician perform to convert fastq to count matrix?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-normalization.html">
+                            
+                                <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
+                                    How can I normalize RNA-Seq count matrix?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-28-processing-count-matrix.html">
+                            
+                                <a href="/rna-seq/2024-08-28-processing-count-matrix.html" onclick="pageScrollToTop(this)">
+                                    How can I know DEGs?
+                                </a>
+                                
+                                    
+                                        <ul><li><a href="#quick-answer-of-this-page-deseq2edger" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: DESeq2/edgeR</a></li></ul>
+
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+                    
+                    <!-- <p>pages</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-RNASeqChef/">
+                            
+                                <a href="/pages/20240828-RNASeqChef/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-docker/">
+                            
+                                <a href="/pages/20240828-docker/" onclick="pageScrollToTop(this)">
+                                    Docker make you life easier
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-TCC-GUI/">
+                            
+                                <a href="/pages/20240829-TCC-GUI/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-iDEP/">
+                            
+                                <a href="/pages/20240829-iDEP/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-metaanalysis/">
+                            
+                                <a href="/pages/20240829-metaanalysis/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/2024-08-29-hoge/">
+                            
+                                <a href="/pages/2024-08-29-hoge/" onclick="pageScrollToTop(this)">
+                                    hoge
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+                    
+                    <!-- <p>others</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/others/how_I_build_this_website/">
+                            
+                                <a href="/others/how_I_build_this_website/" onclick="pageScrollToTop(this)">
+                                    How I built this website
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+            
+        </ul>
+    </nav>
+</div>
+<div class="book-body">
+                <div class="book-header" role="navigation">
+                    <!-- Title -->
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        
+                            <a href="." >How can I know DEGs?</a>
+                        
+                    </h1>
+                </div>
+
+                <div class="body-inner"><div class="page-wrapper" tabindex="-1" role="main">
+    
+
+    <div class="page-inner">
+        <div id="book-search-results">
+            <div class="search-noresults">
+                <section class="normal markdown-section">
+                    
+                        <h1 id="/rna-seq/processing-count-matrix">How can I know DEGs?</h1>
+                    
+
+                    <blockquote class="block-tip">
+  <h5 id="aim-for-this-page">Aim for this page</h5>
+  <p>Understand methods to process a count matrix data</p>
+</blockquote>
+
+<h2 id="quick-answer-of-this-page-deseq2edger">Quick answer of this page: DESeq2/edgeR</h2>
+
+<p>Once you obtain a count matrix, there are a couple of tools available to process the count matrix to extract DEGs (differentially expressed genes). The big two legends in this field are edgeR and DESeq2, cited almost 40000 and 70000 times respectively.</p>
+
+<p><strong>Robinson MD, McCarthy DJ, Smyth GK. edgeR: a Bioconductor package for differential expression analysis of digital gene expression data. Bioinformatics. 2010 Jan 1;26(1):139-40. doi: 10.1093/bioinformatics/btp616.</strong></p>
+
+<p><strong>Love, M.I., Huber, W. &amp; Anders, S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. Genome Biol 15, 550 (2014). https://doi.org/10.1186/s13059-014-0550-8</strong></p>
+
+<p>But why do we need to use this kind of tools? <a href="https://hbctraining.github.io/DGE_workshop_salmon/lessons/05_DGE_DESeq2_analysis2.html">The training seminar at the Harvard Chan Bioinformatics Core</a> documents the uniqueness of RNA-Seq statistics as follows.</p>
+
+<blockquote>
+  <p>the count data generated by RNA-seq exhibits overdispersion (variance &gt; mean) and the statistical distribution used to model the counts needs to account for this overdispersion.</p>
+</blockquote>
+
+<p>The Poisson distribution is commonly used for standard count data and is suitable for data with low variability. However, for data like RNA-Seq, where expression levels can vary greatly depending on conditions, the Poisson distribution is not appropriate. The negative binomial distribution can handle greater variability than the Poisson distribution, making it more suitable for RNA-Seq count data.</p>
+
+<p>For comparing gene expression between samples using visualizations such as box plots or scatter plots, normalization to TPM (Transcripts Per Million) is convenient. However, DESeq2 and edgeR use different assumptions and perform their own internal normalization. Therefore, when using these tools, it is necessary to provide raw count matrices.</p>
+
+<p>DESeq2 uses median of ratios as internal normalization method and edgeR deploys trimmed mean of M values (TMM). Both of the methods are considered reliable, but their assumptions are different.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>DESeq2’s Median of Ratios</th>
+      <th>edgeR’s Trimmed Mean of M-values (TMM)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Approach</strong></td>
+      <td>Uses the median of ratios of gene counts between samples.</td>
+      <td>Calculates the log-fold changes (M-value), trims genes with the extreme M values, and then computes the mean of the trimmed M-values.</td>
+    </tr>
+    <tr>
+      <td><strong>Robustness</strong></td>
+      <td>Handles outliers and large numbers of differentially expressed genes well.</td>
+      <td>Reduces the impact of outliers and adjusts for differences in sequencing depth and composition.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Both packages have appropriate Hypothesis testing and Multiple test correction like Wald test and Benjamini-Hochberg in DESeq2. The packages spit out DEGs over your defined thereshold.</p>
+</section>
+            </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div></div>
+    </div>
+</div>
+
+<!-- introduce mathjax support -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script
+  type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+<!-- introduce per-page mermaid support -->
+
+    <script>
+    function render_mermaid() {
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: "default",
+        });
+        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+    }
+
+    function initialize_mermaid() {
+        if (document.readyState === "loading") {
+            // Loading hasn't finished yet
+            document.addEventListener("DOMContentLoaded", render_mermaid);
+        } else {
+            // `DOMContentLoaded` has already fired
+            render_mermaid();
+        }
+    }
+
+    if (window.mermaid_script && window.mermaid) {
+        initialize_mermaid();
+    } else {
+        window.mermaid_script = document.createElement("script");
+        mermaid_script.onload = initialize_mermaid;
+        document.head.appendChild(mermaid_script);
+        mermaid_script.defer = true;
+        mermaid_script.id = 'mermaid-script';
+        mermaid_script.src = 'https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js';
+    }
+</script>
+
+
+
+<!-- introduce mathjax support -->
+<script>
+    function fixes_chrome_anchors() {
+        let chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if (window.location.hash && chrome) {
+            setTimeout(function () {
+                var hash = window.location.hash;
+                window.location.hash = "";
+                window.location.hash = hash;
+            }, 300);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        // Loading hasn't finished yet
+        document.addEventListener("DOMContentLoaded", fixes_chrome_anchors);
+    } else {
+        // `DOMContentLoaded` has already fired
+        fixes_chrome_anchors();
+    }
+</script>
+
+
+                        <a href="/rna-seq/2024-08-26-normalization.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: How can I normalize RNA-Seq count matrix?">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    
+
+                    
+                </div>
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "expandable-chapter-small2": {
+                "articlesExpand": true,
+            },
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},            "sharing": {
+                "facebook": true,
+
+                "google": false,
+
+                "github": true,
+              
+                "github_link": "https://github.com",
+              
+
+                "telegram": false,
+                "telegram_link": "https://t.me",
+
+                "instapaper": false,
+
+                "twitter": true,
+              
+
+                "vk": false,
+
+                "weibo": false,
+
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper", "github", "telegram"]
+            },
+"theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            },
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Ryo's sandbox",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "_posts/2024-08-28-processing-count-matrix.md",
+        "mtime": "2024-08-28 00:00:00 -0500",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2024-08-28 19:01:33 -0500"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/assets/gitbook/gitbook.js"></script>
+<script src="/assets/gitbook/theme.js"></script>
+
+<script src="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-search-pro/search.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-splitter/splitter.js"></script>
+
+<!--
+<script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script>
+-->
+
+<script src="/assets/gitbook/custom.js"></script>
+<script src="/assets/gitbook/custom-local.js"></script>
+
+</body>
+</html>

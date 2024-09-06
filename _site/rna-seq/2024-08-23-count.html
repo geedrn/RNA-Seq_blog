@@ -1,0 +1,584 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How do you obtain the count matrix of public RNA-Seq data? · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Always being lazy enough to make your life tidy
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-fontsettings/website.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-search-pro/search.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-splitter/splitter.css">
+
+<link rel="stylesheet" href="/assets/gitbook/rouge/colorful.css">
+
+<link rel="stylesheet" href="/assets/gitbook/custom.css">
+<link rel="stylesheet" href="/assets/gitbook/custom-local.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="//assets/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+
+
+            <link rel="prev" href="/" />
+        
+
+        
+            <link rel="next" href="/rna-seq/2024-08-23-databases.html" />
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <script type="text/javascript">
+        // Fixes the page links scroll problem on both desktop and mobile browsers
+        function pageScrollToTop(element) {
+            // both mobile and non-mobile
+            $('div.body-inner').animate({scrollTop: 0});
+            $(element).parent().find('li>ul>li').removeClass('active');
+            return true;  // propagate
+        }
+        // Fixes the anchor links scroll problem on mobile browsers
+        function mobilePageScrollToAnchor(element) {
+            $(element).closest('li.chapter').find('ul>li').removeClass('active');
+            $(element).parent().addClass('active');
+            if ($(document).width() <= 1240) {
+                let target = $($(element).attr('href'));
+                if (target.length) {
+                    $('div.body-inner').animate({
+                        scrollTop: target.get(0).offsetTop,
+                    });
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <nav role="navigation">
+        <div id="book-search-input" role="search">
+            <input type="text" placeholder="Type to search" />
+        </div>
+        <div id="book-search-input-link" role="search">
+            <a href="/assets/search.html">Click to Search</a>
+        </div>
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="/" onclick="pageScrollToTop(this)">
+                    Ryo&#39;s sandbox
+                </a>
+                
+                    
+                
+            </li>
+
+            <li class="divider"></li>
+
+            
+                
+                    
+                    <!-- <p>posts</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-23-count.html">
+                            
+                                <a href="/rna-seq/2024-08-23-count.html" onclick="pageScrollToTop(this)">
+                                    How do you obtain the count matrix of public RNA-Seq data?
+                                </a>
+                                
+                                    
+                                        <ul><li><a href="#quick-answer-of-this-page-use-ncbi-generated-rna-seq-count-data" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use NCBI generated RNA-seq count data</a><ul><li><a href="#rna-seq-raw-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Raw Count Matrix:</a></li><li><a href="#rna-seq-normalized-count-matrix" onclick="mobilePageScrollToAnchor(this)" >RNA-seq Normalized Count Matrix:</a></li><li><a href="#how-does-the-analysis-work" onclick="mobilePageScrollToAnchor(this)" >How does the analysis work?</a></li></ul></li></ul>
+
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-databases.html">
+                            
+                                <a href="/rna-seq/2024-08-23-databases.html" onclick="pageScrollToTop(this)">
+                                    What kind databases are available in RNA-Seq studies?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-basic-analysis.html">
+                            
+                                <a href="/rna-seq/2024-08-26-basic-analysis.html" onclick="pageScrollToTop(this)">
+                                    What kind of magic does a bioinformatician perform to convert fastq to count matrix?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-normalization.html">
+                            
+                                <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
+                                    How can I normalize RNA-Seq count matrix?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-28-processing-count-matrix.html">
+                            
+                                <a href="/rna-seq/2024-08-28-processing-count-matrix.html" onclick="pageScrollToTop(this)">
+                                    How can I know DEGs?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+                    
+                    <!-- <p>pages</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-RNASeqChef/">
+                            
+                                <a href="/pages/20240828-RNASeqChef/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-docker/">
+                            
+                                <a href="/pages/20240828-docker/" onclick="pageScrollToTop(this)">
+                                    Docker make you life easier
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-TCC-GUI/">
+                            
+                                <a href="/pages/20240829-TCC-GUI/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-iDEP/">
+                            
+                                <a href="/pages/20240829-iDEP/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-metaanalysis/">
+                            
+                                <a href="/pages/20240829-metaanalysis/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/2024-08-29-hoge/">
+                            
+                                <a href="/pages/2024-08-29-hoge/" onclick="pageScrollToTop(this)">
+                                    hoge
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+                    
+                    <!-- <p>others</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/others/how_I_build_this_website/">
+                            
+                                <a href="/others/how_I_build_this_website/" onclick="pageScrollToTop(this)">
+                                    How I built this website
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+            
+        </ul>
+    </nav>
+</div>
+<div class="book-body">
+                <div class="book-header" role="navigation">
+                    <!-- Title -->
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        
+                            <a href="." >How do you obtain the count matrix of public RNA-Seq data?</a>
+                        
+                    </h1>
+                </div>
+
+                <div class="body-inner"><div class="page-wrapper" tabindex="-1" role="main">
+    
+
+    <div class="page-inner">
+        <div id="book-search-results">
+            <div class="search-noresults">
+                <section class="normal markdown-section">
+                    
+                        <h1 id="/rna-seq/count">How do you obtain the count matrix of public RNA-Seq data?</h1>
+                    
+
+                    <blockquote class="block-tip">
+  <h5 id="aim-for-this-page">Aim for this page</h5>
+  <p>Know NCBI’s service: auto-generated RNA-seq count data</p>
+</blockquote>
+
+<h2 id="quick-answer-of-this-page-use-ncbi-generated-rna-seq-count-data">Quick answer of this page: Use NCBI generated RNA-seq count data</h2>
+
+<blockquote>
+  <p>You are very fortunate.</p>
+</blockquote>
+
+<p>NCBI launched a new service to make <a href="https://ncbiinsights.ncbi.nlm.nih.gov/2023/04/19/human-rna-seq-geo/?utm_source=ncbi_twitter&amp;utm_medium=referral&amp;utm_campaign=geo-human-rna-seq-20230419">the count matrix of RNA-Seq</a> available!</p>
+
+<p>Count data generation occurs under <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#raw">the following conditions</a>:</p>
+
+<pre><code class="language-bash=">1. The sample is registered in the Sequence Read Archive (SRA)
+2. The sample is registered in the Gene Expression Omnibus (GEO)
+3. The sample is derived from either human or mouse
+</code></pre>
+
+<p>A count matrix is automatically generated approximately one week after sample registration.
+For each GEO Series, two main types of files are generated, raw counts and normalized counts.</p>
+
+<h3 id="rna-seq-raw-count-matrix">RNA-seq Raw Count Matrix:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for input into differential expression analysis tools like DESeq2, edgeR, or limma voom</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="rna-seq-normalized-count-matrix">RNA-seq Normalized Count Matrix:</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>Tab-delimited text file</td>
+    </tr>
+    <tr>
+      <td>Purpose</td>
+      <td>Suitable for qualitative analysis and visualization of gene expression abundance</td>
+    </tr>
+    <tr>
+      <td>Normalization</td>
+      <td>FPKM (RPKM) and TPM</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="how-does-the-analysis-work">How does the analysis work?</h3>
+
+<p>NCBI uses HISAT2 and featureCounts. Details are <a href="https://www.ncbi.nlm.nih.gov/geo/info/rnaseqcounts.html#how">here</a>. 
+Do you want to know what each software manage? Go to <a href="2024-08-26-basic-analysis.html">a next post</a></p>
+
+<blockquote>
+  <p>Briefly, SRA runs where the organism is Homo sapiens and type is Transcriptomic are aligned to genome assembly GCA_000001405.15 using HISAT2. Runs that pass a 50% alignment rate are further processed with Subread featureCounts which outputs a raw count file for each run. For Human data, the Homo sapiens Annotation Release 109.20190905 was used for gene annotation. GEO further processes these SRR raw count files into GEO Series raw counts matrices. Data derived from single cell samples are skipped. In cases where there is more than one SRA run per GEO Sample, the raw counts are summed. Values in the raw count matrices are rounded so that they are compatible input for common differential expression analysis software. Using the raw counts as input, GEO then computes FPKM(RPKM) and TPM normalized values.</p>
+</blockquote>
+
+<blockquote class="block-tip">
+  <h5 id="this-way-of-the-output-is-atarimae-natural-in-rna-seq-field">This way of the output is Atarimae (natural) in RNA-Seq field</h5>
+  <p>Please note that our in-house RNA-Seq pipeline provides the same format of results as a paper below saying</p>
+
+  <p><em>The results of the quantification step are usually combined into an expression matrix, with a row for each expression feature (gene or transcript) 
+and a column for each sample, with the values being either actual read counts or estimated abundances.</em></p>
+
+  <p><strong>Stark, R., Grzelak, M. &amp; Hadfield, J. RNA sequencing: the teenage years. Nat Rev Genet 20, 631–656 (2019). 
+https://doi.org/10.1038/s41576-019-0150-2</strong></p>
+
+  <p>You need to handle these data by yourself for data exploration anyway.</p>
+</blockquote>
+</section>
+            </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div></div>
+    </div>
+</div>
+
+<!-- introduce mathjax support -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script
+  type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+<!-- introduce per-page mermaid support -->
+
+
+<!-- introduce mathjax support -->
+<script>
+    function fixes_chrome_anchors() {
+        let chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if (window.location.hash && chrome) {
+            setTimeout(function () {
+                var hash = window.location.hash;
+                window.location.hash = "";
+                window.location.hash = hash;
+            }, 300);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        // Loading hasn't finished yet
+        document.addEventListener("DOMContentLoaded", fixes_chrome_anchors);
+    } else {
+        // `DOMContentLoaded` has already fired
+        fixes_chrome_anchors();
+    }
+</script>
+
+
+                        <a href="/" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Ryo's sandbox">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    
+
+                    
+                        <a href="/rna-seq/2024-08-23-databases.html" class="navigation navigation-next navigation-unique" aria-label="Next page: What kind databases are available in RNA-Seq studies?">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "next": {
+            "title": "What kind databases are available in RNA-Seq studies?",
+            "level": "1.2",
+            "depth": 1,
+            "path": "_posts/2024-08-25-databases.md",
+            "ref": "_posts/2024-08-25-databases.md",
+            "articles": []
+        },
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "expandable-chapter-small2": {
+                "articlesExpand": true,
+            },
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},            "sharing": {
+                "facebook": true,
+
+                "google": false,
+
+                "github": true,
+              
+                "github_link": "https://github.com",
+              
+
+                "telegram": false,
+                "telegram_link": "https://t.me",
+
+                "instapaper": false,
+
+                "twitter": true,
+              
+
+                "vk": false,
+
+                "weibo": false,
+
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper", "github", "telegram"]
+            },
+"theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            },
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Ryo's sandbox",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "_posts/2024-08-23-count.md",
+        "mtime": "2024-08-23 00:00:00 -0500",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2024-08-28 19:01:33 -0500"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/assets/gitbook/gitbook.js"></script>
+<script src="/assets/gitbook/theme.js"></script>
+
+<script src="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-search-pro/search.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-splitter/splitter.js"></script>
+
+<!--
+<script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script>
+-->
+
+<script src="/assets/gitbook/custom.js"></script>
+<script src="/assets/gitbook/custom-local.js"></script>
+
+</body>
+</html>

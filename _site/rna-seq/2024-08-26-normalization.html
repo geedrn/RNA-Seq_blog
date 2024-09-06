@@ -1,0 +1,692 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head><meta charset="UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><title>How can I normalize RNA-Seq count matrix? · Ryo&#39;s sandbox</title><meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="description" content="Always being lazy enough to make your life tidy
+"><meta name="generator" content="Jekyll (using style of GitBook 3.2.3)"><meta name="author" content="Ryo Niwa"><link rel="stylesheet" href="/assets/gitbook/style.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-fontsettings/website.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-search-pro/search.css">
+<link rel="stylesheet" href="/assets/gitbook/gitbook-plugin-splitter/splitter.css">
+
+<link rel="stylesheet" href="/assets/gitbook/rouge/colorful.css">
+
+<link rel="stylesheet" href="/assets/gitbook/custom.css">
+<link rel="stylesheet" href="/assets/gitbook/custom-local.css">
+
+<meta name="HandheldFriendly" content="true"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/assets/gitbook/images/apple-touch-icon-precomposed-152.png">
+<link rel="shortcut icon" href="//assets/gitbook/images/favicon.ico" type="image/x-icon">
+
+
+
+
+            <link rel="prev" href="/rna-seq/2024-08-26-basic-analysis.html" />
+        
+
+        
+            <link rel="next" href="/rna-seq/2024-08-28-processing-count-matrix.html" />
+        
+    </head>
+    <body>
+        <div class="book"><div class="book-summary">
+    <script type="text/javascript">
+        // Fixes the page links scroll problem on both desktop and mobile browsers
+        function pageScrollToTop(element) {
+            // both mobile and non-mobile
+            $('div.body-inner').animate({scrollTop: 0});
+            $(element).parent().find('li>ul>li').removeClass('active');
+            return true;  // propagate
+        }
+        // Fixes the anchor links scroll problem on mobile browsers
+        function mobilePageScrollToAnchor(element) {
+            $(element).closest('li.chapter').find('ul>li').removeClass('active');
+            $(element).parent().addClass('active');
+            if ($(document).width() <= 1240) {
+                let target = $($(element).attr('href'));
+                if (target.length) {
+                    $('div.body-inner').animate({
+                        scrollTop: target.get(0).offsetTop,
+                    });
+                }
+            }
+            return true;
+        }
+    </script>
+
+    <nav role="navigation">
+        <div id="book-search-input" role="search">
+            <input type="text" placeholder="Type to search" />
+        </div>
+        <div id="book-search-input-link" role="search">
+            <a href="/assets/search.html">Click to Search</a>
+        </div>
+        <ul class="summary">
+            
+            <li class="chapter" data-level="1.1" data-path="">
+            
+                <a href="/" onclick="pageScrollToTop(this)">
+                    Ryo&#39;s sandbox
+                </a>
+                
+                    
+                
+            </li>
+
+            <li class="divider"></li>
+
+            
+                
+                    
+                    <!-- <p>posts</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-count.html">
+                            
+                                <a href="/rna-seq/2024-08-23-count.html" onclick="pageScrollToTop(this)">
+                                    How do you obtain the count matrix of public RNA-Seq data?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-23-databases.html">
+                            
+                                <a href="/rna-seq/2024-08-23-databases.html" onclick="pageScrollToTop(this)">
+                                    What kind databases are available in RNA-Seq studies?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-26-basic-analysis.html">
+                            
+                                <a href="/rna-seq/2024-08-26-basic-analysis.html" onclick="pageScrollToTop(this)">
+                                    What kind of magic does a bioinformatician perform to convert fastq to count matrix?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter active" data-level="1.2" data-path="/rna-seq/2024-08-26-normalization.html">
+                            
+                                <a href="/rna-seq/2024-08-26-normalization.html" onclick="pageScrollToTop(this)">
+                                    How can I normalize RNA-Seq count matrix?
+                                </a>
+                                
+                                    
+                                        <ul><li><a href="#quick-answer-of-this-page-use-tpm-first" onclick="mobilePageScrollToAnchor(this)" >Quick answer of this page: Use TPM first</a><ul><li><a href="#examples-and-details" onclick="mobilePageScrollToAnchor(this)" >Examples and details</a></li><li><a href="#why-are-fpkm-and-tpm-different" onclick="mobilePageScrollToAnchor(this)" >Why are FPKM and TPM different?</a></li></ul></li></ul>
+
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/rna-seq/2024-08-28-processing-count-matrix.html">
+                            
+                                <a href="/rna-seq/2024-08-28-processing-count-matrix.html" onclick="pageScrollToTop(this)">
+                                    How can I know DEGs?
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+                    
+                    <!-- <p>pages</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-RNASeqChef/">
+                            
+                                <a href="/pages/20240828-RNASeqChef/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240828-docker/">
+                            
+                                <a href="/pages/20240828-docker/" onclick="pageScrollToTop(this)">
+                                    Docker make you life easier
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-TCC-GUI/">
+                            
+                                <a href="/pages/20240829-TCC-GUI/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-iDEP/">
+                            
+                                <a href="/pages/20240829-iDEP/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/20240829-metaanalysis/">
+                            
+                                <a href="/pages/20240829-metaanalysis/" onclick="pageScrollToTop(this)">
+                                    RNASeqChef
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/pages/2024-08-29-hoge/">
+                            
+                                <a href="/pages/2024-08-29-hoge/" onclick="pageScrollToTop(this)">
+                                    hoge
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+                    
+                    <!-- <p>others</p> -->
+                    
+                        
+
+                        
+                            
+                            <li class="chapter" data-level="1.1" data-path="/others/how_I_build_this_website/">
+                            
+                                <a href="/others/how_I_build_this_website/" onclick="pageScrollToTop(this)">
+                                    How I built this website
+                                </a>
+                                
+                                    
+                                
+                            </li>
+                        
+
+                        
+                            <li class="divider"></li>
+                        
+                    
+                
+            
+        </ul>
+    </nav>
+</div>
+<div class="book-body">
+                <div class="book-header" role="navigation">
+                    <!-- Title -->
+                    <h1>
+                        <i class="fa fa-circle-o-notch fa-spin"></i>
+                        
+                            <a href="." >How can I normalize RNA-Seq count matrix?</a>
+                        
+                    </h1>
+                </div>
+
+                <div class="body-inner"><div class="page-wrapper" tabindex="-1" role="main">
+    
+
+    <div class="page-inner">
+        <div id="book-search-results">
+            <div class="search-noresults">
+                <section class="normal markdown-section">
+                    
+                        <h1 id="/rna-seq/normalization">How can I normalize RNA-Seq count matrix?</h1>
+                    
+
+                    <blockquote class="block-tip">
+  <h5 id="aim-for-this-page">Aim for this page</h5>
+  <p>Understand methods of normalization in RNA-Seq</p>
+</blockquote>
+
+<h2 id="quick-answer-of-this-page-use-tpm-first">Quick answer of this page: Use TPM first</h2>
+
+<p>Before discussing this topic, this <a href="https://bioinformatics.ccr.cancer.gov/btep/questions/what-is-the-difference-between-rpkm-fpkm-and-tpm">QA</a> is must-read!</p>
+
+<p>RPKM and FPKM are virtually the same concept. RPKM is basically for single-end sequencing and FPKM is for pair-end sequencing.</p>
+<blockquote>
+  <p>With paired-end RNA-seq, two reads can correspond to a single fragment, or, if one read in the pair did not map, one read can correspond to a single fragment. The only difference between RPKM and FPKM is that FPKM takes into account that two reads can map to one fragment (and so it doesn’t count this fragment twice).</p>
+</blockquote>
+
+<p>For RPKM (Reads Per Kilobase Million):</p>
+
+\[\text{RPKM} = \frac{\text{Number of reads mapped to a gene}}{\text{Total reads in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+
+<p>For FPKM (Fragments Per Kilobase Million):</p>
+
+\[\text{FPKM} = \frac{\text{Number of fragments mapped to a gene}}{\text{Total fragments in sample} \times 10^{-6}} \times \frac{10^3}{\text{Length of gene in bp}}\]
+
+<p>For TPM, there are two steps:</p>
+
+<p>Calculate RPK (Reads Per Kilobase):</p>
+
+\[\text{RPK} = \frac{\text{Number of reads mapped to a gene}}{\text{Length of gene in kb}}\]
+
+<p>Calculate TPM (Transcripts Per Kilobase Million):</p>
+
+\[\text{TPM} = \frac{\text{RPK for a gene} \times 10^6}{\text{Sum of all RPK values in the sample}}\]
+
+<blockquote>
+  <p>when calculating TPM, the only difference is that you normalize for gene length first, and then normalize for sequencing depth second. However, the effects of this difference are quite profound. When you use TPM, the sum of all TPMs in each sample are the same. This makes it easier to compare the proportion of reads that mapped to a gene in each sample. In contrast, with RPKM and FPKM, the sum of the normalized reads in each sample may be different, and this makes it harder to compare samples directly.</p>
+</blockquote>
+
+<h3 id="examples-and-details">Examples and details</h3>
+
+<p>Let’s try some examples from this <a href="https://bi.biopapyrus.jp/rnaseq/analysis/normalizaiton/fpkm.html">blog</a>.</p>
+
+<p>Example table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>length</th>
+      <th>1000 bp</th>
+      <th>1200 bp</th>
+      <th>800 bp</th>
+      <th>500 bp</th>
+      <th>2000 bp</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>sample A (count)</td>
+      <td>20</td>
+      <td>30</td>
+      <td>20</td>
+      <td>50</td>
+      <td>150</td>
+    </tr>
+    <tr>
+      <td>sample B (count)</td>
+      <td>100</td>
+      <td>60</td>
+      <td>140</td>
+      <td>120</td>
+      <td>180</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Results (computed by claude):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Transcript Length</th>
+      <th>1000 bp</th>
+      <th>1200 bp</th>
+      <th>800 bp</th>
+      <th>500 bp</th>
+      <th>2000 bp</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sample A (Read Count)</td>
+      <td>20</td>
+      <td>30</td>
+      <td>20</td>
+      <td>50</td>
+      <td>150</td>
+      <td>270</td>
+    </tr>
+    <tr>
+      <td>FPKM (A)</td>
+      <td>74,074</td>
+      <td>92,593</td>
+      <td>92,593</td>
+      <td>370,370</td>
+      <td>277,778</td>
+      <td>907,408</td>
+    </tr>
+    <tr>
+      <td>TPM (A)</td>
+      <td>81,633</td>
+      <td>102,041</td>
+      <td>102,041</td>
+      <td>408,163</td>
+      <td>306,122</td>
+      <td>1,000,000</td>
+    </tr>
+    <tr>
+      <td>Sample B (Read Count)</td>
+      <td>100</td>
+      <td>60</td>
+      <td>140</td>
+      <td>120</td>
+      <td>180</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <td>FPKM (B)</td>
+      <td>166,667</td>
+      <td>83,333</td>
+      <td>291,667</td>
+      <td>400,000</td>
+      <td>150,000</td>
+      <td>1,091,667</td>
+    </tr>
+    <tr>
+      <td>TPM (B)</td>
+      <td>152,672</td>
+      <td>76,336</td>
+      <td>267,176</td>
+      <td>366,412</td>
+      <td>137,404</td>
+      <td>1,000,000</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="why-are-fpkm-and-tpm-different">Why are FPKM and TPM different?</h3>
+
+<p>Wagner, G.P., Kin, K. &amp; Lynch, V.J. Measurement of mRNA abundance using RNA-seq data: RPKM measure is inconsistent among samples. Theory Biosci. 131, 281–285 (2012). <a href="https://doi.org/10.1007/s12064-012-0162-3">https://doi.org/10.1007/s12064-012-0162-3</a></p>
+
+<blockquote>
+  <p>The reason for the inconsistency of RPKM across samples arises from the normalization by the total number of reads. While rmc as well as qPCR results are ratios of transcript concentrations, the RPKM normalizes a proxy for transcript number by</p>
+</blockquote>
+
+\[\frac{r_g \cdot 10^3}{l_g \cdot \frac{R}{10^6}}\]
+
+<blockquote>
+  <p>the number of sequencing reads in millions,</p>
+</blockquote>
+
+\[\frac{R}{10^6}\]
+
+<blockquote>
+  <p>The latter, however, is not a measure of total transcript number. The relationship between \(R\) and the total number of transcripts sampled depends on the size distribution of RNA transcripts, which can differ between samples. In a sample with, on average, longer transcripts the same number of reads represents fewer transcripts.</p>
+</blockquote>
+
+<p>While TPM is essentially the ratio of each gene’s RPK to the total RPK, RPKM (FPKM) can be considered as the ratio of each gene’s RPK to the total number of reads. When longer genes have more reads, the overall RPK effectively becomes smaller, resulting in a discrepancy in the total values. Also please note that when you perform DEG (differentally expressed gene) analysis, you need to put different assumptions. While TPM is useful to compare gene count internally or externally, previous studies suggested DEG analysis require other statistical models.</p>
+</section>
+            </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div></div>
+    </div>
+</div>
+
+<!-- introduce mathjax support -->
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [ ['$', '$'], ['\\(', '\\)'] ]
+  },
+  svg: {
+    fontCache: 'global'
+  }
+};
+</script>
+<script
+  type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+
+
+<!-- introduce per-page mermaid support -->
+
+    <script>
+    function render_mermaid() {
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: "default",
+        });
+        window.mermaid.init(undefined, document.querySelectorAll('.language-mermaid'));
+    }
+
+    function initialize_mermaid() {
+        if (document.readyState === "loading") {
+            // Loading hasn't finished yet
+            document.addEventListener("DOMContentLoaded", render_mermaid);
+        } else {
+            // `DOMContentLoaded` has already fired
+            render_mermaid();
+        }
+    }
+
+    if (window.mermaid_script && window.mermaid) {
+        initialize_mermaid();
+    } else {
+        window.mermaid_script = document.createElement("script");
+        mermaid_script.onload = initialize_mermaid;
+        document.head.appendChild(mermaid_script);
+        mermaid_script.defer = true;
+        mermaid_script.id = 'mermaid-script';
+        mermaid_script.src = 'https://unpkg.com/mermaid@10.4.0/dist/mermaid.min.js';
+    }
+</script>
+
+
+
+<!-- introduce mathjax support -->
+<script>
+    function fixes_chrome_anchors() {
+        let chrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+        if (window.location.hash && chrome) {
+            setTimeout(function () {
+                var hash = window.location.hash;
+                window.location.hash = "";
+                window.location.hash = hash;
+            }, 300);
+        }
+    }
+
+    if (document.readyState === "loading") {
+        // Loading hasn't finished yet
+        document.addEventListener("DOMContentLoaded", fixes_chrome_anchors);
+    } else {
+        // `DOMContentLoaded` has already fired
+        fixes_chrome_anchors();
+    }
+</script>
+
+
+                        <a href="/rna-seq/2024-08-26-basic-analysis.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: What kind of magic does a bioinformatician perform to convert fastq to count matrix?">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                    
+
+                    
+                        <a href="/rna-seq/2024-08-28-processing-count-matrix.html" class="navigation navigation-next navigation-unique" aria-label="Next page: How can I know DEGs?">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    
+                </div>
+            </div>
+
+            <script>
+            var gitbook = gitbook || [];
+            gitbook.push(function() {
+                gitbook.page.hasChanged({
+    "page": {
+        "title": "Introduction",
+        "level": "1.1",
+        "depth": 1,
+        
+        "next": {
+            "title": "How can I know DEGs?",
+            "level": "1.2",
+            "depth": 1,
+            "path": "_posts/2024-08-28-processing-count-matrix.md",
+            "ref": "_posts/2024-08-28-processing-count-matrix.md",
+            "articles": []
+        },
+        
+        "dir": "ltr"
+    },    "config": {
+        "plugins": ["fontsettings", "highlight", "livereload", "lunr", "search", "sharing", "theme-default", "livereload"],
+        "styles": {
+            "ebook": "styles/ebook.css",
+            "epub": "styles/epub.css",
+            "mobi": "styles/mobi.css",
+            "pdf": "styles/pdf.css",
+            "print": "styles/print.css",
+            "website": "styles/website.css"
+        },
+        "pluginsConfig": {
+            "expandable-chapter-small2": {
+                "articlesExpand": true,
+            },
+            "fontsettings": {
+                "family": "sans",
+                "size": 2,
+                "theme": "white"
+            },
+            "highlight": {},
+            "livereload": {},
+            "lunr": {
+                "ignoreSpecialCharacters": false,
+                "maxIndexSize": 1000000
+            },
+            "search": {},            "sharing": {
+                "facebook": true,
+
+                "google": false,
+
+                "github": true,
+              
+                "github_link": "https://github.com",
+              
+
+                "telegram": false,
+                "telegram_link": "https://t.me",
+
+                "instapaper": false,
+
+                "twitter": true,
+              
+
+                "vk": false,
+
+                "weibo": false,
+
+                "all": ["facebook", "google", "twitter", "weibo", "instapaper", "github", "telegram"]
+            },
+"theme-default": {
+                "showLevel": false,
+                "styles": {
+                    "ebook": "styles/ebook.css",
+                    "epub": "styles/epub.css",
+                    "mobi": "styles/mobi.css",
+                    "pdf": "styles/pdf.css",
+                    "print": "styles/print.css",
+                    "website": "styles/website.css"
+                }
+            },
+        },
+        "theme": "default",
+        "author": "Tao He",
+        "pdf": {
+            "pageNumbers": true,
+            "fontSize": 12,
+            "fontFamily": "Arial",
+            "paperSize": "a4",
+            "chapterMark": "pagebreak",
+            "pageBreaksBefore": "/",
+            "margin": {
+                "right": 62,
+                "left": 62,
+                "top": 56,
+                "bottom": 56
+            }
+        },
+        "structure": {
+            "langs": "LANGS.md",
+            "readme": "README.md",
+        },
+        "variables": {},
+        "title": "Ryo's sandbox",
+        "language": "en",
+        "gitbook": "*"
+    },
+    "file": {
+        "path": "_posts/2024-08-26-normalization.md",
+        "mtime": "2024-08-26 00:00:00 -0500",
+        "type": "markdown"
+    },
+    "gitbook": {
+        "version": "3.2.3",
+        "time": "2024-08-28 19:01:33 -0500"
+    },
+    "basePath": "",
+    "book": {
+        "language": ""
+    }
+});
+            });
+            </script>
+        </div><script src="/assets/gitbook/gitbook.js"></script>
+<script src="/assets/gitbook/theme.js"></script>
+
+<script src="/assets/gitbook/gitbook-plugin-back-to-top-button/plugin.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-copy-code-button/toggle.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-expandable-chapters-small2/expandable-chapters-small.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-search-pro/jquery.mark.min.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-search-pro/search.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-sharing/buttons.js"></script>
+<script src="/assets/gitbook/gitbook-plugin-splitter/splitter.js"></script>
+
+<!--
+<script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+<script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+<script src="../gitbook/gitbook-plugin-search/search.js"></script>
+-->
+
+<script src="/assets/gitbook/custom.js"></script>
+<script src="/assets/gitbook/custom-local.js"></script>
+
+</body>
+</html>
